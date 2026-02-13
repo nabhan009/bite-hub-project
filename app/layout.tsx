@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import { Toaster } from "sonner";
+import { AuthProvider } from "./(auth)/Context";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +28,35 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
+
+        <Toaster 
+          theme="dark" 
+          position="top-center" 
+          expand={false} // Keeps them stacked nicely
+          richColors={false} // We will use our own custom colors
+          toastOptions={{
+            style: {
+              background: '#0d0d0d', // Matches your card color
+              border: '1px solid rgba(249, 115, 22, 0.2)', // Soft orange glow border
+              color: '#fafafa',
+              borderRadius: '1.5rem',
+              padding: '16px',
+              fontSize: '12px',
+              fontWeight: '700',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+            },
+            // Customizing icons to match BiteHub orange
+            success: {
+              style: { border: '1px solid #f97316' },
+            },
+            error: {
+              style: { border: '1px solid #ef4444' },
+            },
+          }}
+        />
       </body>
     </html>
   );

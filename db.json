@@ -1,0 +1,170 @@
+{
+  "users": [
+    {
+      "id": "1770278618517",
+      "name": "muhamme nabhan",
+      "email": "nabhan@gmail.com",
+      "password": "zxcvbnm",
+      "role": "student",
+      "isloggingIn": true,
+      "createdAt": "2026-02-05T08:03:38.517Z",
+      "mealsOrdered": [],
+      "preBookedMeals": []
+    },
+    {
+      "id": "1770278668476",
+      "name": "aaaaaaaaaa",
+      "email": "nabhan009@gmail.com",
+      "password": "zxcvbnm",
+      "role": "hotel",
+      "createdAt": "2026-02-05T08:04:28.476Z"
+    }
+  ],
+  "restaurants": [
+    {
+      "id": "r1",
+      "name": "Paragon",
+      "address": "Calicut, Kerala",
+      "lat": 11.250841574094006,
+      "lng": 75.77217263807493,
+      "phone": "+91 9876543210",
+      "type": "non-veg & veg",
+      "image":"https://images.lifestyleasia.com/wp-content/uploads/sites/7/2023/07/03210827/paragon-restaurant.jpg?tr=w-1200,h-900",
+      "description":"Paragon is a renowned restaurant in Calicut, Kerala, famous for its authentic Malabar cuisine. Established in 1939, it offers a diverse menu featuring dishes like Malabar Biryani, Chicken Curry, and seafood specialties. With a rich history and a reputation for quality, Paragon is a must-visit for food lovers seeking traditional flavors in a vibrant atmosphere."
+    },
+    { 
+      "id": "r2",
+      "name": "Rahmath",
+      "address": "Kozhikode, Kerala",
+      "lat": 11.251978539593999,
+      "lng": 75.78035937708137,
+      "phone": "+91 9876543220",
+      "type": "non-veg",
+      "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRybctSrREr19cwCIPsPmrad2Vg957jw_KJQ&s",
+      "description":"Hotel Rahmath in Kozhikode (Mananchira), established in 1961, is a legendary, bustling eatery famous for its authentic Malabari dum-style beef biryani, often considered among the city's best. It is highly popular for, budget-friendly,,, and quick service, particularly for its tender meat dishes, though it is often crowded. "
+    },
+    {
+      "id": "r3",
+      "name": "Soofi Mandi",
+      "address": "Calicut, Kerala",
+      "lat": 11.255535286051483,
+      "lng": 75.77380655156661,
+      "phone": "+91 9876543210",
+      "type": "non-veg",
+      "image":"https://mindtrip.ai/cdn-cgi/image/format=webp,w=720/https://images.mindtrip.ai/restaurants/0403/d1e1/2a8c/65c2/2ee6/e050/9852/8c04",
+      "description":"Soofi Mandi is a popular restaurant chain specializing in authentic, oil-free, and less-spicy Yemeni cuisine, with locations across Kerala (Kochi, Thrissur, Calicut, Tirur, Palakkad), Bengaluru, Qatar, and Oman. Known for tender, slow-cooked meat (chicken, mutton, beef) served with fragrant rice, it is a favorite for families. "
+    },
+    {
+      "id": "r4",
+      "name": "Nahdi Mandi",
+      "address": "Calicut, Kerala",
+      "lat": 11.256616595082331,
+      "lng": 75.77397402083376,
+      "phone": "+91 9876543210",
+      "type": "non-veg",
+      "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSha3NZfuiFy6fAT4KRHUlvzPGA2ui1YeVvVQ&s",
+      "description":"Nahdi Kuzhi Mandi is a popular restaurant chain, originated in Kerala, known for authentic, slow-cooked Arabian Mandi dishes, with over 10 locations in India and outlets in Qatar, Bahrain, and other Middle Eastern countries. It is highly regarded for its tender chicken and mutton, flavorful rice, and family-friendly, traditional dining ambiance. "
+    },
+    {
+      "id": "r5",
+      "name": "Sufi Darbar",
+      "address": "Kozhikode, Kerala",
+      "lat": 11.249139906199408,
+      "lng": 75.77299441640184,
+      "phone": "+91 9876543220",
+      "type": "non-veg",
+      "image":"https://b.zmtcdn.com/data/pictures/4/19740254/713e34e8120dfaf888a5e933b8f95ee8.jpeg?fit=around|960:500&crop=960:500;*,*",
+      "description":"Sufi Darbab is a popular, affordable Arabian restaurant chain in Kozhikode (Mankavu and South Beach) and Bangalore, renowned for its, tender beef ribs, honey chilli chicken, and varied Mandi dishes. Known for a warm, inviting atmosphere and quick service, it is highly regarded for its flavorful, slow-cooked meat. "
+    }
+  ],
+  "meals": [
+    {
+      "id": "1",
+      "restaurantId": "r1",
+      "hotelName": "Paragon",
+      "foodName": "Vegetable Biryani",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "1.2",
+      "price": 40,
+      "type": "veg",
+      "image": "https://images.unsplash.com/photo-1563379091339-03b21bc4a4f8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "2",
+      "restaurantId": "r2",
+      "hotelName": "Rahmath",
+      "foodName": "Chicken Curry",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "2.5",
+      "price": 60,
+      "type": "non-veg",
+      "image": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "3",
+      "restaurantId": "r3",
+      "foodName": "Kuzhimanthi",
+      "hotelName": "Soofi Mandi",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "0.8",
+      "price": 80,
+      "type": "non-veg",
+      "image": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "4",
+      "restaurantId": "r4",
+      "hotelName": "Nahdi Mandi",
+      "foodName": "Beef Roast & Porotta",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "3.1",
+      "price": 50,
+      "type": "non-veg",
+      "image": "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "5",
+      "restaurantId": "r5",
+      "hotelName": "Sufi Darbar",
+      "foodName": "Grilled Chicken",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "1.5",
+      "price": 75,
+      "type": "non-veg",
+      "image": "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "6",
+      "restaurantId": "r1",
+      "hotelName": "Paragon",
+      "foodName": "Malabar Snacks Box",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "4.2",
+      "price": 20,
+      "type": "veg",
+      "image": "https://images.unsplash.com/photo-1601050638911-c32395c1f54a?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "7",
+      "restaurantId": "r3",
+      "hotelName": "Soofi Mandi",
+      "foodName": "Paneer Tikka",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "2.0",
+      "price": 45,
+      "type": "veg",
+      "image": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "8",
+      "restaurantId": "r2",
+      "hotelName": "Paragon",
+      "foodName": "Fish Curry",
+      "expiryTime": "2026-02-14T19:20:00.000Z",
+      "distance": "0.5",
+      "price": 30,
+      "type": "non-veg",
+      "image": "https://images.unsplash.com/photo-1626132646529-500637532537?auto=format&fit=crop&w=800&q=80"
+    }
+  ]
+}
