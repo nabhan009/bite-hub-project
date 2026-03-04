@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { useRouter } from "next/navigation";
 import api from "@/app/Api_instance/api";
 
-// -------- TYPES --------
+// TYPES 
 type User = {
   id: string;
   name: string;
@@ -14,6 +14,7 @@ type User = {
   createdAt?: string;
   mealsOrdered?: string[];
   preBookedMeals?: string[];
+  pin?: string;
 };
 
 type RegisterData = {
@@ -26,7 +27,7 @@ type RegisterData = {
 
 type AuthContextType = {
   user: User | null;
-  updateUser: (data: Partial<User>) => void;   // ✅ NEW
+  updateUser: (data: Partial<User>) => void; 
   login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
   register: (data: RegisterData) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
@@ -35,7 +36,7 @@ type AuthContextType = {
 };
 
 
-// -------- CONTEXT --------
+//  CONTEXT 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -52,38 +53,61 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
   }, []);
 
-  // ============ LOGIN ============
-  const login = async (email: string, password: string) => {
-    try {
-      const res = await api.get<User[]>(`/users?email=${email}`);
+  // LOGIN 
+const login = async (email: string, password: string) => {
+  try {
 
-      if (res.data.length === 0) {
-        return { success: false, message: "User not found!" };
-      }
+    // CHECK STUDENTS
+    const studentRes = await api.get<User[]>(`/users?email=${email}`);
 
-      const foundUser = res.data[0];
+    if (studentRes.data.length > 0) {
 
-      if (foundUser.password !== password) {
+      const foundStudent = studentRes.data[0];
+
+      if (foundStudent.password !== password) {
         return { success: false, message: "Incorrect password!" };
       }
 
-      localStorage.setItem("bitehub_user", JSON.stringify(foundUser));
-      setUser(foundUser);
+      localStorage.setItem("bitehub_user", JSON.stringify(foundStudent));
+      setUser(foundStudent);
 
-      await api.patch(`/users/${foundUser.id}`, { isloggingIn: true });
+      await api.patch(`/users/${foundStudent.id}`, { isloggingIn: true });
 
-      foundUser.role === "hotel"
-        ? router.push("/hotel-dashboard")
-        : router.push("/");
+      router.push("/studentHome");
 
       return { success: true };
-    } catch (err) {
-      console.error(err);
-      return { success: false, message: "Login failed!" };
     }
-  };
 
-  // ============ REGISTER ============
+    // CHECK HOTELS
+    const hotelRes = await api.get<any[]>(`/restaurants?email=${email}`);
+
+    if (hotelRes.data.length > 0) {
+
+      const foundHotel = hotelRes.data[0];
+
+      if (foundHotel.password !== password) {
+        return { success: false, message: "Incorrect password!" };
+      }
+
+      localStorage.setItem("bitehub_user", JSON.stringify(foundHotel));
+      setUser(foundHotel);
+
+      await api.patch(`/restaurants/${foundHotel.id}`, { isloggingIn: true });
+
+      router.push("/HotelDashboard");
+
+      return { success: true };
+    }
+
+    return { success: false, message: "User not found!" };
+
+  } catch (err) {
+    console.error(err);
+    return { success: false, message: "Login failed!" };
+  }
+};
+
+  //  REGISTER 
   const register = async (formData: RegisterData) => {
     try {
       if (formData.password.length < 6) {
@@ -111,7 +135,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       newUser.role === "hotel"
         ? router.push("/hotel-dashboard")
-        : router.push("/student-feed");
+        : router.push("/studentHome");
 
       return { success: true };
     } catch (err) {
@@ -120,20 +144,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // ============ LOGOUT ============
-  const logout = async () => {
-    if (user) {
-      try {
-        await api.patch(`/users/${user.id}`, { isloggingIn: false });
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  //  LOGOUT 
+const logout = async () => {
+  if (user) {
+    try {
 
-    localStorage.removeItem("bitehub_user");
-    setUser(null);
-    router.push("/");
-  };
+      if (user.role === "hotel") {
+        await api.patch(`/restaurants/${user.id}`, { isloggingIn: false });
+      } else {
+        await api.patch(`/users/${user.id}`, { isloggingIn: false });
+      }
+
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  localStorage.removeItem("bitehub_user");
+  setUser(null);
+  router.push("/");
+};
+
   const updateUser = (data: Partial<User>) => {
   if (!user) return;
 
@@ -146,7 +177,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 <AuthContext.Provider
   value={{
     user,
-    updateUser,   // ✅ expose THIS instead of setUser
+    updateUser,  
     login,
     register,
     logout,

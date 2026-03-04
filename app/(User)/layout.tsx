@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Navbar from "./components/navbar";
+// import Navbar from "./components/navbar";
 import { useAuth } from "../(auth)/Context";
 import { useRouter } from "next/navigation";
+import NavbarPersonalized from "../components/navbar";
+import NavbarRestaurant from "../components/NavbarRestaurant";
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef(null);
@@ -23,7 +25,7 @@ const router = useRouter();
       if (!user) {
         router.push("/Login");
       } else if (user.role !== "student") {
-        router.push("/HotelOwner");
+        router.push("/HotelDashboard");
       }
     }
   }, [user, loading]);
@@ -32,7 +34,7 @@ const router = useRouter();
 
   return (
     <main ref={mainRef} className="bg-[#050505]">
-        <Navbar/>
+      <NavbarPersonalized />
       {children}
     </main>
   );

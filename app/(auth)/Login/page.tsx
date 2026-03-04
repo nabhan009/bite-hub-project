@@ -65,24 +65,6 @@ export default function Login() {
     });
   };
 
-  // const handleLogin = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await api.get(`/users?email=${email}`);
-  //     if (res.data.length === 0) return toast.error("User not found!");
-  //     const user = res.data[0];
-  //     if (user.password !== password) return toast.error("Incorrect password!");
-      
-  //     localStorage.setItem("bitehub_user", JSON.stringify(user));
-  //     user.role === "hotel" ? router.push("/hotel-dashboard") : router.push("/");
-  //     await api.patch(`/users/${user.id}`, { isloggingIn: true });
-  //     toast.success("Welcome to the BiteHub!");
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-
   const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 

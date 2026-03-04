@@ -137,7 +137,7 @@ export default function RestaurantScroll() {
       wheelMultiplier: 1,
     });
 
-    function raf(time) {
+    function raf(time:any) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
