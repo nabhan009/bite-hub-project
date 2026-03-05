@@ -1,172 +1,359 @@
+// "use client";
+// import React, { useEffect, useRef, useState } from "react";
+// import { gsap } from "gsap";
+// import { 
+//   Hotel, Users, TrendingUp, Leaf, 
+//   PackageCheck, Hash, UtensilsCrossed 
+// } from "lucide-react";
+// import api from "@/app/Api_instance/api";
+// import { AdminSidebar } from "@/app/components/Slidebar";
+
+
+// export default function AdminDashboard() {
+//   const containerRef = useRef(null);
+//   const [stats, setStats] = useState({
+//     mealsSaved: 0,
+//     activeStudents: 0,
+//     hotelPartners: 0,
+//     carbonOffset: 0
+//   });
+//   const [recentOrders, setRecentOrders] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+
+//   useEffect(() => {
+//     const fetchAdminData = async () => {
+//       try {
+//         const [ordersRes, studentsRes, hotelsRes] = await Promise.all([
+//           api.get("/mealsOrdered"),
+//           api.get("/users"),
+//           api.get("/restaurants")
+//         ]);
+
+//         const totalOrders = ordersRes.data.length;
+
+//         setStats({
+//           mealsSaved: totalOrders,
+//           activeStudents: studentsRes.data.length,
+//           hotelPartners: hotelsRes.data.length,
+//           carbonOffset: totalOrders * 0.5 
+//         });
+
+//         setRecentOrders(ordersRes.data.slice(-5).reverse());
+//         setLoading(false);
+//       } catch (err) {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchAdminData();
+//   }, []);
+
+//   useEffect(() => {
+//     if (!loading) {
+//       const ctx = gsap.context(() => {
+//         // --- THE FIX ---
+//         // We use fromTo to explicitly define the start and end states.
+//         // clearProps: "all" ensures the div stays visible after the animation.
+//         gsap.fromTo(".stat-card", 
+//           { opacity: 0, y: 40 },
+//           { 
+//             opacity: 1, 
+//             y: 0, 
+//             duration: 0.8, 
+//             stagger: 0.15, 
+//             ease: "power4.out",
+//             clearProps: "opacity,transform" 
+//           }
+//         );
+
+//         gsap.from(".chart-bar", {
+//           height: 0,
+//           duration: 1.2,
+//           stagger: 0.1,
+//           ease: "back.out(1.7)",
+//           delay: 0.3
+//         });
+//       }, containerRef);
+//       return () => ctx.revert();
+//     }
+//   }, [loading]);
+
+//   return (
+//     <div ref={containerRef} className="flex min-h-screen bg-[#050505] text-[#fafafa] font-sans">
+//       <AdminSidebar />
+
+//       <main className="flex-1 p-10 overflow-y-auto">
+//         <header className="flex justify-between items-end mb-12">
+//           <div>
+//             <h1 className="text-4xl font-black uppercase tracking-tighter italic">Global <span className="text-orange-500">Command</span></h1>
+//             <p className="text-[#737373] text-xs font-bold uppercase tracking-widest mt-2">Real-time ecosystem monitoring</p>
+//           </div>
+//           <div className="bg-[#0d0d0d] border border-white/5 px-4 py-2 rounded-xl flex items-center gap-3">
+//              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+//              <span className="text-[10px] font-black uppercase tracking-widest text-[#737373]">System Online</span>
+//           </div>
+//         </header>
+
+//         {/* --- STAT GRID --- */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+//           <StatCard label="Meals Saved" value={stats.mealsSaved} icon={<PackageCheck className="text-orange-500" />} trend="+12%" />
+//           <StatCard label="Active Students" value={stats.activeStudents} icon={<Users className="text-blue-500" />} trend="+5%" />
+//           <StatCard label="Hotel Partners" value={stats.hotelPartners} icon={<Hotel className="text-purple-500" />} trend="+2" />
+//           <StatCard label="CO2 Offset" value={`${stats.carbonOffset}kg`} icon={<Leaf className="text-green-500" />} trend="+18%" />
+//         </div>
+
+//         <div className="grid lg:grid-cols-3 gap-8">
+//           <div className="lg:col-span-2 bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-10">
+//             <h3 className="text-sm font-black uppercase tracking-widest mb-10">Weekly Distribution</h3>
+//             <div className="flex items-end justify-between h-64 gap-4">
+//               {[60, 40, 85, 50, 95, 70, 45].map((height, i) => (
+//                 <div key={i} className="flex-1 flex flex-col items-center gap-4">
+//                   <div 
+//                     className="chart-bar w-full bg-gradient-to-t from-orange-600/20 to-orange-500 rounded-t-xl"
+//                     style={{ height: `${height}%` }}
+//                   />
+//                   <span className="text-[10px] font-bold text-[#404040]">DAY {i+1}</span>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+
+//           <div className="bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-8">
+//             <h3 className="text-sm font-black uppercase tracking-widest mb-8 text-orange-500">Live Collections</h3>
+//             <div className="space-y-4">
+//               {recentOrders.map((order: any) => (
+//                 <div key={order.id} className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
+//                   <div className="flex items-center gap-3">
+//                     <UtensilsCrossed size={14} className="text-[#737373]" />
+//                     <div>
+//                       <p className="text-xs font-black text-white">{order.mealName}</p>
+//                       <p className="text-[10px] text-[#737373] uppercase font-bold">{order.customerName}</p>
+//                     </div>
+//                   </div>
+//                   <div className="flex items-center gap-1 bg-[#141414] px-2 py-1 rounded-lg border border-white/5">
+//                     <Hash size={10} className="text-orange-500" />
+//                     <span className="font-mono font-bold text-[10px]">{order.orderCode}</span>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }
+
+// function StatCard({ label, value, icon, trend }: any) {
+//   return (
+//     <div className="stat-card bg-[#0d0d0d] border border-white/5 p-8 rounded-[2rem] hover:border-orange-500/20 transition-all group">
+//       <div className="flex justify-between items-start mb-4">
+//         <div className="p-3 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform">{icon}</div>
+//         <span className="text-green-500 text-[10px] font-bold bg-green-500/10 px-2 py-1 rounded-lg">{trend}</span>
+//       </div>
+//       <p className="text-[10px] font-black text-[#737373] uppercase tracking-widest mb-1">{label}</p>
+//       <h4 className="text-3xl font-black tracking-tighter italic">{value}</h4>
+//     </div>
+//   );
+// }
+
+
+
+
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { 
-  LayoutDashboard, Hotel, Users, History, 
-  Settings, LogOut, TrendingUp, Leaf, 
-  PackageCheck, ArrowUpRight 
+import {
+  Hotel, Users, Leaf, PackageCheck, Hash, UtensilsCrossed
 } from "lucide-react";
-import Link from "next/link";
-import Slidebar from "@/app/components/Slidebar";
+import api from "@/app/Api_instance/api";
+import { AdminSidebar } from "@/app/components/Slidebar";
 
 export default function AdminDashboard() {
   const containerRef = useRef(null);
-  const chartRef = useRef(null);
+  const [stats, setStats] = useState({
+    mealsSaved: 0,
+    activeStudents: 0,
+    hotelPartners: 0,
+    carbonOffset: 0,
+    successRate: 0
+  });
+  const [recentOrders, setRecentOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // 1. Entrance Stagger for Cards
-      gsap.from(".stat-card", {
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power4.out",
-      });
+    const fetchAdminData = async () => {
+      try {
+        const [ordersRes, studentsRes, hotelsRes, liveMealsRes] = await Promise.all([
+          api.get("/mealsOrdered"),
+          api.get("/users"),
+          api.get("/restaurants"),
+          api.get("/meals")
+        ]);
 
-      // 2. Animated Bar Chart logic
-      gsap.from(".chart-bar", {
-        height: 0,
-        duration: 1.5,
-        stagger: 0.1,
-        ease: "elastic.out(1, 0.5)",
-        delay: 0.5
-      });
-    }, containerRef);
+        const totalOrdered = ordersRes.data.length;
+        const totalLive = liveMealsRes.data.length;
+        const rate = totalOrdered > 0 ? Math.round((totalOrdered / (totalOrdered + totalLive)) * 100) : 0;
 
-    return () => ctx.revert();
+        setStats({
+          mealsSaved: totalOrdered,
+          activeStudents: studentsRes.data.length,
+          hotelPartners: hotelsRes.data.length,
+          carbonOffset: totalOrdered * 0.5,
+          successRate: rate
+        });
+
+        setRecentOrders(ordersRes.data.slice(-5).reverse());
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    };
+    fetchAdminData();
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      const ctx = gsap.context(() => {
+
+        // --- FIXED STAT CARD ANIMATION ---
+        // 1. We use fromTo to ensure it STARTS at 0 and ENDS at 1 opacity.
+        // 2. clearProps: "all" deletes the GSAP styles after 0.8s so they stay visible.
+        gsap.fromTo(".stat-card",
+          { opacity: 0, y: 40, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+            clearProps: "all" // CRITICAL: This removes the GSAP styles after completion
+          }
+        );
+
+        // Radial Progress Animation
+        gsap.fromTo(".progress-ring",
+          { strokeDashoffset: 440 },
+          {
+            strokeDashoffset: 440 - (440 * stats.successRate) / 100,
+            duration: 2,
+            ease: "power4.out",
+            delay: 0.5
+          }
+        );
+      }, containerRef);
+      return () => ctx.revert();
+    }
+  }, [loading, stats.successRate]);
 
   return (
     <div ref={containerRef} className="flex min-h-screen bg-[#050505] text-[#fafafa] font-sans">
-      
-      {/* --- SIDEBAR --- */}
-      <aside className="w-72 bg-[#0d0d0d] border-r border-white/5 p-8 flex flex-col sticky top-0 h-screen">
-        <div className="mb-12">
-          <h2 className="text-2xl font-black italic text-orange-500 tracking-tighter uppercase">
-            Admin<span className="text-white">Hub</span>
-          </h2>
-          <p className="text-[10px] font-black text-[#404040] uppercase tracking-[0.3em] mt-1">Kozhikode Node</p>
-        </div>
-        
-        <nav className="flex-1 space-y-2">
-          <SidebarLink icon={<LayoutDashboard size={18} />} label="Overview" active />
-          <SidebarLink icon={<Hotel size={18} />} label="Hotels" />
-          <SidebarLink icon={<Users size={18} />} label="Students" />
-          <SidebarLink icon={<History size={18} />} label="Live Logs" />
-          <SidebarLink icon={<Settings size={18} />} label="System" />
-        </nav>
+      <AdminSidebar />
 
-        <button className="flex items-center gap-4 px-4 py-4 text-red-500/50 hover:text-red-500 font-black text-[10px] uppercase tracking-widest transition-all mt-auto border-t border-white/5">
-          <LogOut size={18} />
-          Logout Session
-        </button>
-      </aside>
-
-      {/* --- MAIN CONTENT --- */}
-      <main className="flex-1 p-10 overflow-y-auto">
-        <header className="flex justify-between items-end mb-12">
+      <main className="flex-1 ml-16 md:ml-20 p-4 md:p-10 overflow-x-hidden overflow-y-auto">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6 md:gap-0">
           <div>
-            <h1 className="text-4xl font-black uppercase tracking-tighter italic">Global <span className="text-orange-500">Command</span></h1>
-            <p className="text-[#737373] text-xs font-bold uppercase tracking-widest mt-2">Real-time ecosystem monitoring</p>
+            <h1 className="text-4xl font-black uppercase tracking-tighter italic leading-none">
+              Global <span className="text-orange-500">Command</span>
+            </h1>
+            <p className="text-[#737373] text-[10px] font-bold uppercase tracking-[0.4em] mt-2">Kozhikode Distribution Node</p>
           </div>
-          <div className="bg-[#0d0d0d] border border-white/5 px-4 py-2 rounded-xl flex items-center gap-3">
-             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-[#737373]">System Online</span>
+          <div className="bg-[#0d0d0d] border border-white/5 px-6 py-3 rounded-2xl flex items-center gap-3">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-white/50">System Live</span>
           </div>
         </header>
 
-        {/* --- STAT GRID --- */}
+        {/* --- STAT GRID (FIXED) --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <StatCard label="Meals Saved" value="1,240" icon={<PackageCheck className="text-orange-500" />} trend="+12%" />
-          <StatCard label="Active Students" value="3,842" icon={<Users className="text-blue-500" />} trend="+5%" />
-          <StatCard label="Hotel Partners" value="48" icon={<Hotel className="text-purple-500" />} trend="+2" />
-          <StatCard label="CO2 Offset" value="820kg" icon={<Leaf className="text-green-500" />} trend="+18%" />
+          <StatCard label="Meals Saved" value={stats.mealsSaved} icon={<PackageCheck className="text-orange-500" />} trend="+12%" />
+          <StatCard label="Active Students" value={stats.activeStudents} icon={<Users className="text-blue-500" />} trend="+5%" />
+          <StatCard label="Hotel Partners" value={stats.hotelPartners} icon={<Hotel className="text-purple-500" />} trend="+2" />
+          <StatCard label="CO2 Offset" value={`${stats.carbonOffset}kg`} icon={<Leaf className="text-green-500" />} trend="+18%" />
         </div>
 
-        {/* --- ANALYTICS & ACTIVITY --- */}
         <div className="grid lg:grid-cols-3 gap-8">
-          
-          {/* Chart Card */}
-          <div className="lg:col-span-2 bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-10 relative overflow-hidden">
-            <div className="flex justify-between items-center mb-10">
-              <h3 className="text-sm font-black uppercase tracking-widest">Weekly Distribution</h3>
-              <TrendingUp size={16} className="text-orange-500" />
+          <div className="lg:col-span-2 bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-6 md:p-10 flex flex-col items-center justify-center relative overflow-hidden group">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-600/10 blur-[100px] rounded-full" />
+
+            <div className="text-center mb-8">
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#737373]">Ecosystem Efficiency</h3>
+              <p className="text-[10px] text-orange-500 font-bold uppercase mt-2">Real-time Successful Claims</p>
             </div>
-            
-            <div ref={chartRef} className="flex items-end justify-between h-64 gap-4">
-              {[60, 40, 85, 50, 95, 70, 45].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-4">
-                  <div 
-                    className="chart-bar w-full bg-gradient-to-t from-orange-600/20 to-orange-500 rounded-t-xl relative group"
-                    style={{ height: `${height}%` }}
-                  >
-                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      {height}%
+
+            <div className="relative flex items-center justify-center">
+              {/* SVG Background Circle */}
+              <svg className="w-64 h-64 transform -rotate-90">
+                <circle cx="128" cy="128" r="70" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-white/[0.03]" />
+                <circle
+                  cx="128" cy="128" r="70" stroke="currentColor" strokeWidth="12" fill="transparent"
+                  strokeDasharray="440" strokeDashoffset="440"
+                  className="progress-ring text-orange-500 transition-all duration-500"
+                  strokeLinecap="round"
+                />
+              </svg>
+              {/* Percentage in center */}
+              <div className="absolute flex flex-col items-center">
+                <span className="rate-number text-6xl font-black italic tracking-tighter">{stats.successRate}</span>
+                <span className="text-[10px] font-black text-[#737373] uppercase tracking-widest mt-[-5px]">% SUCCESS</span>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-6 sm:gap-12 border-t border-white/5 pt-8 w-full justify-center items-center">
+              <div className="text-center">
+                <p className="text-[10px] font-black text-[#404040] uppercase tracking-widest mb-1">Total Posts</p>
+                <p className="text-xl font-bold">{stats.mealsSaved + recentOrders.length}</p>
+              </div>
+              <div className="text-center sm:border-x border-y sm:border-y-0 border-white/5 px-0 py-4 sm:px-12 sm:py-0 w-full sm:w-auto">
+                <p className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-1">Impact Rank</p>
+                <p className="text-xl font-bold">GOLD</p>
+              </div>
+              <div className="text-center">
+                <p className="text-[10px] font-black text-[#404040] uppercase tracking-widest mb-1">Waste Prevented</p>
+                <p className="text-xl font-bold">{stats.mealsSaved} Meals</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Live Feed */}
+          <div className="bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-8">
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] mb-8 text-[#737373]">Live Feed</h3>
+            <div className="space-y-4">
+              {recentOrders.map((order: any) => (
+                <div key={order.id} className="flex items-center justify-between p-5 bg-[#141414]/50 border border-white/5 rounded-[1.5rem] group hover:border-orange-500/20 transition-all">
+                  <div className="flex items-center gap-4">
+                    <UtensilsCrossed size={16} className="text-orange-500" />
+                    <div>
+                      <p className="text-xs font-black text-white">{order.mealName}</p>
+                      <p className="text-[9px] text-[#404040] uppercase font-black">{order.customerName}</p>
                     </div>
                   </div>
-                  <span className="text-[10px] font-bold text-[#404040]">DAY {i+1}</span>
+                  <div className="flex items-center gap-1 bg-black px-2 py-1 rounded-lg border border-white/5">
+                    <Hash size={10} className="text-orange-500" />
+                    <span className="font-mono font-bold text-[10px]">{order.bookingRef}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Activity Feed */}
-          <div className="bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-8">
-            <h3 className="text-sm font-black uppercase tracking-widest mb-8">Live Activity</h3>
-            <div className="space-y-6">
-              <ActivityItem user="Adhil" action="claimed" item="Chicken Biryani" time="2m ago" />
-              <ActivityItem user="Nahdi Mandi" action="posted" item="3x Rice Plates" time="5m ago" />
-              <ActivityItem user="Paragon" action="verified" item="Order #HB82" time="12m ago" />
-              <ActivityItem user="Fathima" action="registered" item="Student User" time="1h ago" />
-            </div>
-            <button className="w-full mt-10 py-4 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all">
-              View All Logs
-            </button>
-          </div>
-
         </div>
       </main>
     </div>
   );
 }
 
-/* --- SUB-COMPONENTS --- */
-
-function SidebarLink({ icon, label, active = false }: { icon: any, label: string, active?: boolean }) {
-  return (
-    <Link href="#" className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest ${active ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'text-[#737373] hover:text-white hover:bg-white/5'}`}>
-      {icon}
-      {label}
-    </Link>
-  );
-}
-
+// Fixed StatCard Component
 function StatCard({ label, value, icon, trend }: any) {
   return (
-    <div className="stat-card bg-[#0d0d0d] border border-white/5 p-8 rounded-[2rem] hover:border-white/10 transition-all group">
-      <div className="flex justify-between items-start mb-4">
-        <div className="p-3 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform">{icon}</div>
-        <span className="text-green-500 text-[10px] font-bold bg-green-500/10 px-2 py-1 rounded-lg">{trend}</span>
+    <div className="stat-card bg-[#0d0d0d] border border-white/5 p-8 rounded-[2.5rem] group hover:border-orange-500/20 transition-all shadow-xl">
+      <div className="flex justify-between items-start mb-6">
+        <div className="p-4 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform">{icon}</div>
+        <span className="text-green-500 text-[9px] font-black bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">{trend}</span>
       </div>
-      <p className="text-[10px] font-black text-[#737373] uppercase tracking-widest mb-1">{label}</p>
+      <p className="text-[10px] font-black text-[#737373] uppercase tracking-[0.2em] mb-1">{label}</p>
       <h4 className="text-3xl font-black tracking-tighter italic">{value}</h4>
-    </div>
-  );
-}
-
-function ActivityItem({ user, action, item, time }: any) {
-  return (
-    <div className="flex items-start gap-4">
-      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] font-black uppercase">{user[0]}</div>
-      <div className="flex-1">
-        <p className="text-[11px] leading-relaxed">
-          <span className="font-black text-white">{user}</span> 
-          <span className="text-[#737373] mx-1 uppercase text-[9px]">{action}</span> 
-          <span className="text-orange-500 font-bold">{item}</span>
-        </p>
-        <p className="text-[9px] text-[#404040] font-bold uppercase mt-1 tracking-tighter">{time}</p>
-      </div>
     </div>
   );
 }

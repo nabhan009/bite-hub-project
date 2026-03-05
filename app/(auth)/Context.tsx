@@ -1,16 +1,24 @@
 "use client";
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
 import { useRouter } from "next/navigation";
 import api from "@/app/Api_instance/api";
+import { toast } from "sonner";
 
-// TYPES 
+// TYPES
 type User = {
   id: string;
   name: string;
   email: string;
   password?: string;
-  role: "student" | "hotel";
+  role: "student" | "hotel" | "admin";
   isloggingIn?: boolean;
+  isBlocked?: boolean;
   createdAt?: string;
   mealsOrdered?: string[];
   preBookedMeals?: string[];
@@ -27,16 +35,20 @@ type RegisterData = {
 
 type AuthContextType = {
   user: User | null;
-  updateUser: (data: Partial<User>) => void; 
-  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
-  register: (data: RegisterData) => Promise<{ success: boolean; message?: string }>;
+  updateUser: (data: Partial<User>) => void;
+  login: (
+    email: string,
+    password: string,
+  ) => Promise<{ success: boolean; message?: string }>;
+  register: (
+    data: RegisterData,
+  ) => Promise<{ success: boolean; message?: string }>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
   loading: boolean;
 };
 
-
-//  CONTEXT 
+//  CONTEXT
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -53,61 +65,72 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(false);
   }, []);
 
-  // LOGIN 
-const login = async (email: string, password: string) => {
-  try {
+  // LOGIN
+  const login = async (email: string, password: string) => {
+    try {
+      // CHECK STUDENTS
+      const studentRes = await api.get<User[]>(`/users?email=${email}`);
 
-    // CHECK STUDENTS
-    const studentRes = await api.get<User[]>(`/users?email=${email}`);
+      if (studentRes.data.length > 0) {
+        const foundStudent = studentRes.data[0];
 
-    if (studentRes.data.length > 0) {
+        if (foundStudent.password !== password) {
+          return { success: false, message: "Incorrect password!" };
+        }
 
-      const foundStudent = studentRes.data[0];
+        localStorage.setItem("bitehub_user", JSON.stringify(foundStudent));
+        setUser(foundStudent);
 
-      if (foundStudent.password !== password) {
-        return { success: false, message: "Incorrect password!" };
+        await api.patch(`/users/${foundStudent.id}`, { isloggingIn: true });
+
+        if (foundStudent && foundStudent.isBlocked) {
+          toast.error("Your account has been suspended by an administrator.");
+          return;
+        }
+        // router.push("/studentHome");
+        if (foundStudent.role === "hotel") {
+          router.push("/HotelDashboard");
+        } else if (foundStudent.role === "admin") {
+          router.push("/AdminDashboard");
+        } else {
+          router.push("/studentHome");
+        }
+
+        return { success: true };
       }
 
-      localStorage.setItem("bitehub_user", JSON.stringify(foundStudent));
-      setUser(foundStudent);
+      // CHECK HOTELS
+      const hotelRes = await api.get<any[]>(`/restaurants?email=${email}`);
 
-      await api.patch(`/users/${foundStudent.id}`, { isloggingIn: true });
+      if (hotelRes.data.length > 0) {
+        const foundHotel = hotelRes.data[0];
 
-      router.push("/studentHome");
+        if (foundHotel.password !== password) {
+          return { success: false, message: "Incorrect password!" };
+        }
 
-      return { success: true };
-    }
+        localStorage.setItem("bitehub_user", JSON.stringify(foundHotel));
+        setUser(foundHotel);
 
-    // CHECK HOTELS
-    const hotelRes = await api.get<any[]>(`/restaurants?email=${email}`);
+        await api.patch(`/restaurants/${foundHotel.id}`, { isloggingIn: true });
 
-    if (hotelRes.data.length > 0) {
+        if (foundHotel && foundHotel.isBlocked) {
+          toast.error("Your account has been suspended by an administrator.");
+          return;
+        }
+        router.push("/HotelDashboard");
 
-      const foundHotel = hotelRes.data[0];
-
-      if (foundHotel.password !== password) {
-        return { success: false, message: "Incorrect password!" };
+        return { success: true };
       }
 
-      localStorage.setItem("bitehub_user", JSON.stringify(foundHotel));
-      setUser(foundHotel);
-
-      await api.patch(`/restaurants/${foundHotel.id}`, { isloggingIn: true });
-
-      router.push("/HotelDashboard");
-
-      return { success: true };
+      return { success: false, message: "User not found!" };
+    } catch (err) {
+      console.error(err);
+      return { success: false, message: "Login failed!" };
     }
+  };
 
-    return { success: false, message: "User not found!" };
-
-  } catch (err) {
-    console.error(err);
-    return { success: false, message: "Login failed!" };
-  }
-};
-
-  //  REGISTER 
+  //  REGISTER
   const register = async (formData: RegisterData) => {
     try {
       if (formData.password.length < 6) {
@@ -124,8 +147,8 @@ const login = async (email: string, password: string) => {
         ...formData,
         createdAt: new Date().toISOString(),
         isloggingIn: true,
-        mealsOrdered :[],
-        preBookedMeals: []
+        mealsOrdered: [],
+        preBookedMeals: [],
       };
 
       await api.post("/users", newUser);
@@ -144,47 +167,45 @@ const login = async (email: string, password: string) => {
     }
   };
 
-  //  LOGOUT 
-const logout = async () => {
-  if (user) {
-    try {
-
-      if (user.role === "hotel") {
-        await api.patch(`/restaurants/${user.id}`, { isloggingIn: false });
-      } else {
-        await api.patch(`/users/${user.id}`, { isloggingIn: false });
+  //  LOGOUT
+  const logout = async () => {
+    if (user) {
+      try {
+        if (user.role === "hotel") {
+          await api.patch(`/restaurants/${user.id}`, { isloggingIn: false });
+        } else {
+          await api.patch(`/users/${user.id}`, { isloggingIn: false });
+        }
+      } catch (err) {
+        console.error(err);
       }
-
-    } catch (err) {
-      console.error(err);
     }
-  }
 
-  localStorage.removeItem("bitehub_user");
-  setUser(null);
-  router.push("/");
-};
+    localStorage.removeItem("bitehub_user");
+    setUser(null);
+    router.push("/");
+  };
 
   const updateUser = (data: Partial<User>) => {
-  if (!user) return;
+    if (!user) return;
 
-  const updated = { ...user, ...data };
-  setUser(updated);
-  localStorage.setItem("bitehub_user", JSON.stringify(updated));
-};
+    const updated = { ...user, ...data };
+    setUser(updated);
+    localStorage.setItem("bitehub_user", JSON.stringify(updated));
+  };
 
   return (
-<AuthContext.Provider
-  value={{
-    user,
-    updateUser,  
-    login,
-    register,
-    logout,
-    isAuthenticated: !!user,
-    loading,
-  }}
->
+    <AuthContext.Provider
+      value={{
+        user,
+        updateUser,
+        login,
+        register,
+        logout,
+        isAuthenticated: !!user,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

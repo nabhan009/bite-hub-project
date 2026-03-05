@@ -6,11 +6,12 @@
       "email": "user@gmail.com",
       "password": "zxcvbnm",
       "role": "student",
-      "isloggingIn": false,
+      "isloggingIn": true,
       "createdAt": "2026-02-05T08:03:38.517Z",
       "mealsOrdered": [],
       "preBookedMeals": [],
-      "pin": "1111"
+      "pin": "1111",
+      "isBlocked": false
     },
     {
       "id": "1772599922688",
@@ -25,7 +26,7 @@
   "restaurants": [
     {
       "id": "1771402018323",
-      "hotelName": "rahmath 1",
+      "hotelName": "Rahmath",
       "email": "rahmath@gmail.com",
       "address": "123 Main Street, Cityville ....",
       "contactNumber": "372648264186347",
@@ -49,14 +50,15 @@
       "contactNumber": "628239822923",
       "lat": "11.287851196052456",
       "lng": "75.8066306668317",
-      "isloggingIn": false
+      "isloggingIn": true,
+      "isBlocked": false
     }
   ],
   "meals": [
     {
       "id": "1",
       "restaurantId": "1771402018323",
-      "hotelName": "rahmath",
+      "hotelName": "Rahmath",
       "foodName": "Vegetable Biryani",
       "expiryTime": "2026-03-28T19:20:00.000Z",
       "price": 40,
@@ -67,7 +69,7 @@
     {
       "id": "2",
       "restaurantId": "1771402018323",
-      "hotelName": "rahmath",
+      "hotelName": "Rahmath",
       "foodName": "Chicken Curry",
       "expiryTime": "2026-03-28T19:20:00.000Z",
       "distance": "2.5",

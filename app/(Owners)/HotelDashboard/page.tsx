@@ -8,6 +8,7 @@ import { PlusCircle, TrendingUp, Users, Leaf, ChevronRight } from "lucide-react"
 import Footer from "@/app/components/footer";
 import NavbarRestaurant from "@/app/components/NavbarRestaurant";
 import api from "@/app/Api_instance/api";
+import { socket } from "@/utils/socket";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,18 +20,46 @@ export default function HotelHome() {
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
-  const fetchUsers = async () => {
-    const res = await api.get("/users");
-    setUsers(res.data);
-  };
-  fetchUsers();
-  const fetchMeals = async () => {
-    const res1 = await api.get("/meals");
-    setMeals(res1.data);
-  };
-  fetchMeals();
-  // const impact = users.length === 0 ? 0 : (meals.length / users.length).toFixed(2);
-}, []);
+    const fetchUsers = async () => {
+      const res = await api.get("/users");
+      setUsers(res.data);
+    };
+    fetchUsers();
+    const fetchMeals = async () => {
+      const res1 = await api.get("/meals");
+      setMeals(res1.data);
+    };
+    fetchMeals();
+    // const impact = users.length === 0 ? 0 : (meals.length / users.length).toFixed(2);
+
+    // ----- REAL-TIME NOTIFICATIONS LOGIC -----
+    const userStr = localStorage.getItem("bitehub_user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+
+      // 1. Join the hotel's room based on their ID
+      if (user.role === "hotel" && user.id) {
+        socket.emit("joinHotel", user.id);
+
+        // 2. Listen for the 'orderNotification' event coming from Checkout
+        socket.on("orderNotification", (newOrderData) => {
+          console.log("DING! New order:", newOrderData);
+
+          // Optional: Use a toast notification to alert the user instantly!
+          // toast.success(`New order received for ${newOrderData.order.mealName}!`);
+          alert(`New order received! A student just reserved ${newOrderData.order.mealName}!`);
+
+          // If you have state that shows orders on this page, you would update it here:
+          // setRecentOrders(prev => [newOrderData.order, ...prev])
+        });
+      }
+    }
+
+    // Cleanup to prevent duplicate listeners
+    return () => {
+      socket.off("orderNotification");
+    };
+  }, []);
   useGSAP(() => {
     // 1. Sticky Reveal Logic
     ScrollTrigger.create({
@@ -49,11 +78,11 @@ export default function HotelHome() {
       duration: 1.2,
       ease: "power4.out"
     })
-    .from(".hero-cta", {
-      scale: 0.8,
-      opacity: 0,
-      duration: 0.8
-    }, "-=0.5");
+      .from(".hero-cta", {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8
+      }, "-=0.5");
 
     // 3. Staggered Card Reveal on Scroll
     gsap.from(".action-card", {
@@ -74,12 +103,12 @@ export default function HotelHome() {
       <NavbarRestaurant />
 
       {/* --- HERO SECTION (Sticky) --- */}
-      <section 
-        ref={heroRef} 
+      <section
+        ref={heroRef}
         className="relative h-screen flex items-center justify-center overflow-hidden z-0"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent" />
-        
+
         <div className="relative z-10 text-center px-6">
           <h1 className="hero-title text-6xl md:text-[8vw] font-black leading-none uppercase tracking-tighter italic">
             <span className="block">Grow Your</span>
@@ -89,7 +118,7 @@ export default function HotelHome() {
             BiteHub Provider Portal • Est. 2026
           </p>
           <div className="hero-cta mt-12">
-            <button 
+            <button
               onClick={() => router.push("/HotelMealAdd")}
               className="group flex items-center gap-3 px-12 py-5 bg-white text-black rounded-full font-black uppercase text-xs tracking-widest hover:bg-orange-500 hover:text-white transition-all duration-500 shadow-2xl"
             >
@@ -101,12 +130,12 @@ export default function HotelHome() {
 
       {/* --- DASHBOARD CONTENT --- */}
       <div className="relative z-10 bg-[#050505] shadow-[0_-50px_100px_rgba(0,0,0,0.9)] rounded-t-[3rem] border-t border-white/5">
-        
+
         {/* Quick Stats */}
         <div className="max-w-7xl mx-auto px-6 -translate-y-1/2 grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { label: "Meals Saved", value: `${meals.length || 0}`, icon: <Leaf className="text-orange-500" /> },
-            { label: "Community Reach", value:`${users?.length || 0}`, icon: <Users className="text-orange-500" /> },
+            { label: "Community Reach", value: `${users?.length || 0}`, icon: <Users className="text-orange-500" /> },
             { label: "Impact Score", value: `${users.length === 0 ? 0 : (meals.length / users.length).toFixed(2)}%`, icon: <TrendingUp className="text-orange-500" /> },
           ].map((stat, i) => (
             <div key={i} className="bg-[#0d0d0d] p-8 rounded-3xl border border-white/5 flex items-center justify-between backdrop-blur-xl">
@@ -122,9 +151,9 @@ export default function HotelHome() {
         {/* Action Grid */}
         <section className="action-grid max-w-7xl mx-auto px-6 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
+
             {/* Action Card 1 */}
-            <div 
+            <div
               onClick={() => router.push("/HotelMealAdd")}
               className="action-card group relative h-[400px] rounded-[3rem] overflow-hidden border border-white/5 cursor-pointer"
             >
@@ -140,7 +169,7 @@ export default function HotelHome() {
             </div>
 
             {/* Action Card 2 */}
-            <div 
+            <div
               onClick={() => router.push(`/HotelHistory`)}
               className="action-card group relative h-[400px] rounded-[3rem] overflow-hidden border border-white/5 cursor-pointer"
             >
@@ -160,18 +189,18 @@ export default function HotelHome() {
 
         {/* Live Status Section */}
         <section className="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
-           <div className="bg-orange-500/5 rounded-[4rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between border border-orange-500/10">
-              <div className="text-center md:text-left">
-                <h2 className="text-4xl md:text-6xl font-black uppercase italic mb-4">Ready to <span className="text-orange-500">Donate?</span></h2>
-                <p className="text-gray-400 font-medium">Your surplus could be someone's next meal. Start the cycle now.</p>
-              </div>
-              {/* <button 
+          <div className="bg-orange-500/5 rounded-[4rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between border border-orange-500/10">
+            <div className="text-center md:text-left">
+              <h2 className="text-4xl md:text-6xl font-black uppercase italic mb-4">Ready to <span className="text-orange-500">Donate?</span></h2>
+              <p className="text-gray-400 font-medium">Your surplus could be someone's next meal. Start the cycle now.</p>
+            </div>
+            {/* <button 
                 onClick={() => router.push("/hotelPostMeal")}
                 className="mt-8 md:mt-0 px-10 py-5 bg-orange-500 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_20px_40px_rgba(249,115,22,0.2)]"
               >
                 Go Live Now
               </button> */}
-           </div>
+          </div>
         </section>
 
         <Footer />
