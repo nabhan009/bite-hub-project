@@ -15,12 +15,12 @@
 //   return (
 //     <aside className="w-64 min-h-screen bg-[#0d0d0d] border-r border-white/5 p-6 flex flex-col">
 //       <div className="mb-10 px-2">
-//         <h2 className="text-xl font-black italic text-orange-500 uppercase">Admin<span className="text-white">Hub</span></h2>
+//         <h2 className="text-xl font-black italic text-orange-500 uppercase">Admin<span className="text-[#fafafa]">Hub</span></h2>
 //       </div>
 
 //       <nav className="flex-1 space-y-2">
 //         {menu.map((item) => (
-//           <Link key={item.name} href={item.path} className="flex items-center gap-4 px-4 py-3 rounded-xl text-[#737373] hover:bg-orange-500/10 hover:text-orange-500 transition-all font-bold text-xs uppercase tracking-widest">
+//           <Link key={item.name} href={item.path} className="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-500 hover:bg-orange-500/10 hover:text-orange-500 transition-all font-bold text-xs uppercase tracking-widest">
 //             {item.icon}
 //             {item.name}
 //           </Link>
@@ -99,8 +99,8 @@ export const AdminSidebar = () => {
             key={item.name}
             href={item.path}
             className={`flex items-center gap-4 px-3 py-3 rounded-xl transition-all font-bold text-xs uppercase tracking-widest relative group ${pathname === item.path
-                ? "bg-orange-500 text-white"
-                : "text-[#737373] hover:bg-white/5 hover:text-white"
+              ? "bg-orange-500 text-[#fafafa]"
+              : "text-gray-500 hover:bg-white/5 hover:text-[#fafafa]"
               }`}
           >
             <div className="min-w-[24px] flex justify-center">
@@ -112,7 +112,7 @@ export const AdminSidebar = () => {
 
             {/* Tooltip for collapsed state */}
             {!sidebarRef.current && (
-              <div className="absolute left-16 bg-orange-600 text-white px-2 py-1 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <div className="absolute left-16 bg-orange-600 text-[#fafafa] px-2 py-1 rounded text-[10px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                 {item.name}
               </div>
             )}
@@ -122,6 +122,7 @@ export const AdminSidebar = () => {
 
       {/* Logout at bottom */}
       <div className="p-4 border-t border-white/5">
+
         <button
           onClick={logout}
           className="w-full flex items-center gap-4 px-3 py-3 text-red-500 font-bold text-xs uppercase tracking-widest hover:bg-red-500/10 rounded-xl transition-all"

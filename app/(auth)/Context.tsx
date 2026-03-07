@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         if (foundStudent && foundStudent.isBlocked) {
           toast.error("Your account has been suspended by an administrator.");
-          return;
+          return { success: false, message: "Account suspended" };
         }
         // router.push("/studentHome");
         if (foundStudent.role === "hotel") {
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         if (foundHotel && foundHotel.isBlocked) {
           toast.error("Your account has been suspended by an administrator.");
-          return;
+          return { success: false, message: "Account suspended" };
         }
         router.push("/HotelDashboard");
 

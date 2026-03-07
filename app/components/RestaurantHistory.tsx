@@ -58,7 +58,7 @@
 //       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-orange-600/5 blur-[120px] rounded-full pointer-events-none" />
 //                     <button
 //           onClick={() => router.back()}
-//           className="animate-item flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
+//           className="animate-item flex items-center gap-2 text-gray-500 hover:text-[#fafafa] transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
 //         >
 //           <ArrowLeft size={16} /> Back to Dashboard
 //         </button>
@@ -69,7 +69,7 @@
 //             <h1 className="text-4xl font-black tracking-tighter italic uppercase leading-none">
 //               Order <span className="text-orange-500">History</span>
 //             </h1>
-//             <p className="text-[#737373] text-sm font-bold uppercase tracking-widest mt-2">
+//             <p className="text-gray-500 text-sm font-bold uppercase tracking-widest mt-2">
 //               Tracking surplus food impact in Kozhikode.
 //             </p>
 //           </div>
@@ -127,7 +127,7 @@
 //           <div className={`p-2 rounded-lg ${isBooked ? 'bg-blue-500/10 text-blue-400' : 'bg-orange-500/10 text-orange-500'}`}>
 //             <UtensilsCrossed size={16} />
 //           </div>
-//           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#737373]">
+//           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">
 //             {isBooked ? "Waiting for Student" : "Collection Success"}
 //           </span>
 //         </div>
@@ -141,7 +141,7 @@
 //         {order.mealName}
 //       </h3>
 
-//       <div className="flex items-center gap-2 text-[#737373] mb-4">
+//       <div className="flex items-center gap-2 text-gray-500 mb-4">
 //         <User size={14} />
 //         <span className="text-xs font-bold uppercase tracking-wide">{order.customerName}</span>
 //       </div>
@@ -161,13 +161,13 @@
 
 // const StatBox = ({ label, value, color }: { label: string; value: number; color: string }) => (
 //   <div className="bg-[#0d0d0d] px-6 py-4 rounded-2xl border border-white/[0.05] shadow-xl">
-//     <p className="text-[9px] font-black text-[#737373] uppercase tracking-[0.2em] mb-1">{label}</p>
+//     <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1">{label}</p>
 //     <p className={`text-3xl font-black ${color} tracking-tighter`}>{value}</p>
 //   </div>
 // );
 
 // const EmptyState = () => (
-//   <div className="py-16 border border-dashed border-white/10 rounded-[2rem] flex flex-col items-center justify-center text-[#404040] bg-[#0d0d0d]/50">
+//   <div className="py-16 border border-dashed border-white/5 rounded-[2rem] flex flex-col items-center justify-center text-[#404040] bg-[#0d0d0d]/50">
 //     <UtensilsCrossed size={32} className="mb-3 opacity-20" />
 //     <p className="text-[10px] font-black uppercase tracking-widest">Empty Records</p>
 //   </div>
@@ -295,7 +295,7 @@ const RestaurantHistory = ({ id }: { id: string }) => {
     >
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
+        className="flex items-center gap-2 text-gray-500 hover:text-[#fafafa] transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
       >
         <ArrowLeft size={16} /> Back to Dashboard
       </button>
@@ -389,7 +389,7 @@ const OrderCard = ({
         </span>
       </div>
 
-      <div className="text-sm text-gray-400 mb-4">
+      <div className="text-sm text-gray-500 mb-4">
         <User size={14} className="inline mr-1" />
         {order.customerName}
       </div>
@@ -401,7 +401,7 @@ const OrderCard = ({
             placeholder="Enter Unique Code"
             value={inputCode}
             onChange={(e) => setInputCode(e.target.value)}
-            className="flex-1 bg-[#141414] border border-white/10 px-4 py-2 rounded-xl text-xs outline-none focus:border-orange-500"
+            className="flex-1 bg-[#141414] border border-white/5 px-4 py-2 rounded-xl text-xs outline-none focus:border-orange-500"
           />
           <button
             onClick={handleVerify}
@@ -426,13 +426,13 @@ const StatBox = ({
   color: string;
 }) => (
   <div className="bg-[#0d0d0d] px-6 py-4 rounded-2xl border border-white/[0.05] shadow-xl">
-    <p className="text-xs text-gray-400 uppercase">{label}</p>
+    <p className="text-xs text-gray-500 uppercase">{label}</p>
     <p className={`text-3xl font-black ${color}`}>{value}</p>
   </div>
 );
 
 const EmptyState = () => (
-  <div className="py-16 border border-dashed border-white/10 rounded-[2rem] text-center text-gray-500">
+  <div className="py-16 border border-dashed border-white/5 rounded-[2rem] text-center text-gray-500">
     No Records
   </div>
 );

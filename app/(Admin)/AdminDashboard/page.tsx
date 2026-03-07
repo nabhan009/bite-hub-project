@@ -87,11 +87,11 @@
 //         <header className="flex justify-between items-end mb-12">
 //           <div>
 //             <h1 className="text-4xl font-black uppercase tracking-tighter italic">Global <span className="text-orange-500">Command</span></h1>
-//             <p className="text-[#737373] text-xs font-bold uppercase tracking-widest mt-2">Real-time ecosystem monitoring</p>
+//             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-2">Real-time ecosystem monitoring</p>
 //           </div>
 //           <div className="bg-[#0d0d0d] border border-white/5 px-4 py-2 rounded-xl flex items-center gap-3">
 //              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-//              <span className="text-[10px] font-black uppercase tracking-widest text-[#737373]">System Online</span>
+//              <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">System Online</span>
 //           </div>
 //         </header>
 
@@ -125,10 +125,10 @@
 //               {recentOrders.map((order: any) => (
 //                 <div key={order.id} className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
 //                   <div className="flex items-center gap-3">
-//                     <UtensilsCrossed size={14} className="text-[#737373]" />
+//                     <UtensilsCrossed size={14} className="text-gray-500" />
 //                     <div>
-//                       <p className="text-xs font-black text-white">{order.mealName}</p>
-//                       <p className="text-[10px] text-[#737373] uppercase font-bold">{order.customerName}</p>
+//                       <p className="text-xs font-black text-[#fafafa]">{order.mealName}</p>
+//                       <p className="text-[10px] text-gray-500 uppercase font-bold">{order.customerName}</p>
 //                     </div>
 //                   </div>
 //                   <div className="flex items-center gap-1 bg-[#141414] px-2 py-1 rounded-lg border border-white/5">
@@ -152,7 +152,7 @@
 //         <div className="p-3 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform">{icon}</div>
 //         <span className="text-green-500 text-[10px] font-bold bg-green-500/10 px-2 py-1 rounded-lg">{trend}</span>
 //       </div>
-//       <p className="text-[10px] font-black text-[#737373] uppercase tracking-widest mb-1">{label}</p>
+//       <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1">{label}</p>
 //       <h4 className="text-3xl font-black tracking-tighter italic">{value}</h4>
 //     </div>
 //   );
@@ -258,7 +258,7 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-black uppercase tracking-tighter italic leading-none">
               Global <span className="text-orange-500">Command</span>
             </h1>
-            <p className="text-[#737373] text-[10px] font-bold uppercase tracking-[0.4em] mt-2">Kozhikode Distribution Node</p>
+            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.4em] mt-2">Kozhikode Distribution Node</p>
           </div>
           <div className="bg-[#0d0d0d] border border-white/5 px-6 py-3 rounded-2xl flex items-center gap-3">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_#22c55e]" />
@@ -279,7 +279,7 @@ export default function AdminDashboard() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-600/10 blur-[100px] rounded-full" />
 
             <div className="text-center mb-8">
-              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#737373]">Ecosystem Efficiency</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-500">Ecosystem Efficiency</h3>
               <p className="text-[10px] text-orange-500 font-bold uppercase mt-2">Real-time Successful Claims</p>
             </div>
 
@@ -297,7 +297,7 @@ export default function AdminDashboard() {
               {/* Percentage in center */}
               <div className="absolute flex flex-col items-center">
                 <span className="rate-number text-6xl font-black italic tracking-tighter">{stats.successRate}</span>
-                <span className="text-[10px] font-black text-[#737373] uppercase tracking-widest mt-[-5px]">% SUCCESS</span>
+                <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest mt-[-5px]">% SUCCESS</span>
               </div>
             </div>
 
@@ -319,14 +319,14 @@ export default function AdminDashboard() {
 
           {/* Live Feed */}
           <div className="bg-[#0d0d0d] border border-white/5 rounded-[2.5rem] p-8">
-            <h3 className="text-xs font-black uppercase tracking-[0.2em] mb-8 text-[#737373]">Live Feed</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] mb-8 text-gray-500">Live Feed</h3>
             <div className="space-y-4">
               {recentOrders.map((order: any) => (
                 <div key={order.id} className="flex items-center justify-between p-5 bg-[#141414]/50 border border-white/5 rounded-[1.5rem] group hover:border-orange-500/20 transition-all">
                   <div className="flex items-center gap-4">
                     <UtensilsCrossed size={16} className="text-orange-500" />
                     <div>
-                      <p className="text-xs font-black text-white">{order.mealName}</p>
+                      <p className="text-xs font-black text-[#fafafa]">{order.mealName}</p>
                       <p className="text-[9px] text-[#404040] uppercase font-black">{order.customerName}</p>
                     </div>
                   </div>
@@ -352,7 +352,7 @@ function StatCard({ label, value, icon, trend }: any) {
         <div className="p-4 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform">{icon}</div>
         <span className="text-green-500 text-[9px] font-black bg-green-500/10 px-3 py-1.5 rounded-full border border-green-500/20">{trend}</span>
       </div>
-      <p className="text-[10px] font-black text-[#737373] uppercase tracking-[0.2em] mb-1">{label}</p>
+      <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1">{label}</p>
       <h4 className="text-3xl font-black tracking-tighter italic">{value}</h4>
     </div>
   );

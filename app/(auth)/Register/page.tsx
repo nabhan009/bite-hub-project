@@ -143,7 +143,7 @@ const handleRegister = async (e: React.FormEvent) => {
           <h2 ref={titleRef} className="text-4xl font-black text-[#fafafa] tracking-tight mb-3 cursor-default">
             Create Account
           </h2>
-          <p className="text-[#737373] text-xs font-bold uppercase tracking-[0.2em] opacity-70">
+          <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] opacity-70">
             Join the mission to end food waste
           </p>
         </div>
@@ -152,14 +152,14 @@ const handleRegister = async (e: React.FormEvent) => {
           {/* Dynamic Inputs Rendering */}
           {formFields.map((field, i) => (
             <div key={field.key} ref={(el) => { inputsRef.current[i] = el; }} className="space-y-2">
-              <label className={`label-tag-${i} block text-xs font-black text-[#737373] uppercase tracking-widest ml-1 transition-colors`}>
+              <label className={`label-tag-${i} block text-xs font-black text-gray-500 uppercase tracking-widest ml-1 transition-colors`}>
                 {field.label}
               </label>
               <input
                 type={field.type}
                 placeholder={field.placeholder}
                 required
-                className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-white focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
+                className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-[#fafafa] focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
                 onFocus={() => handleInputFocus(i, true)}
                 onBlur={() => handleInputFocus(i, false)}
                 onChange={(e) => setFormData({ ...formData, [field.key as any]: e.target.value })}
@@ -169,10 +169,10 @@ const handleRegister = async (e: React.FormEvent) => {
 
           {/* Role Selection */}
           <div ref={(el) => { inputsRef.current[3] = el; }} className="space-y-2">
-            <label className="label-tag-3 block text-xs font-black text-[#737373] uppercase tracking-widest ml-1">I am a...</label>
+            <label className="label-tag-3 block text-xs font-black text-gray-500 uppercase tracking-widest ml-1">I am a...</label>
             <select
               value={formData.role}
-              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-white focus:border-orange-600 outline-none appearance-none cursor-pointer transition-all"
+              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-[#fafafa] focus:border-orange-600 outline-none appearance-none cursor-pointer transition-all"
               onFocus={() => handleInputFocus(3, true)}
               onBlur={() => handleInputFocus(3, false)}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
@@ -182,13 +182,13 @@ const handleRegister = async (e: React.FormEvent) => {
             </select>
           </div>
 
-          <button ref={(el) => { inputsRef.current[4] = el; }} className="w-full mt-4 bg-orange-600 hover:bg-orange-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_10px_30px_rgba(234,88,12,0.2)] active:scale-95 uppercase tracking-widest text-sm">
+          <button ref={(el) => { inputsRef.current[4] = el; }} className="w-full mt-4 bg-orange-600 hover:bg-orange-500 text-[#fafafa] font-black py-4 rounded-2xl transition-all shadow-[0_10px_30px_rgba(234,88,12,0.2)] active:scale-95 uppercase tracking-widest text-sm">
             Sign Up
           </button>
         </form>
 
         <div className="mt-8 text-center">
-          <Link href="/Login" className="text-[#737373] text-sm hover:text-orange-500 transition-colors inline-block group">
+          <Link href="/Login" className="text-gray-500 text-sm hover:text-orange-500 transition-colors inline-block group">
             Already have an account? <span className="text-orange-500 font-bold group-hover:underline underline-offset-4">Login</span>
           </Link>
         </div>

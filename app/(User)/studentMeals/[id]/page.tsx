@@ -22,6 +22,7 @@ interface Meal {
   distance: number;
   type: "veg" | "non-veg";
   image: string;
+  images?: string[];
   expiryTime: string;
   description?: string;
 }
@@ -30,14 +31,17 @@ export default function MealDetailPage() {
   const { id } = useParams();
   const router = useRouter();
   const [meal, setMeal] = useState<Meal | null>(null);
+  const [activeImage, setActiveImage] = useState<string>("");
   const containerRef = useRef(null);
   const timeLeft = useCountdown(meal?.expiryTime || "");
+
   useEffect(() => {
     const fetchMealDetails = async () => {
       try {
         // Fetch specific meal by ID
         const res = await api.get(`/meals/${id}`);
         setMeal(res.data);
+        setActiveImage(res.data.image || "");
       } catch (err) {
         toast.error("Meal not found");
         router.push("/studentMeals");
@@ -76,10 +80,12 @@ export default function MealDetailPage() {
       </div>
     );
 
+  const displayImages = meal.images && meal.images.length > 0 ? meal.images : [meal.image];
+
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-[#050505] text-white p-6 pt-32 selection:bg-orange-500/30"
+      className="min-h-screen bg-[#050505] text-[#fafafa] p-6 pt-32 selection:bg-orange-500/30"
     >
       <div className="max-w-6xl mx-auto">
         {/* BACK BUTTON */}
@@ -90,22 +96,39 @@ export default function MealDetailPage() {
           <ArrowLeft size={16} /> Back to Meals
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* LEFT: IMAGE SECTION */}
-          <div className="animate-up relative aspect-square lg:aspect-auto lg:h-[70vh] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
-            <img
-              src={meal.image}
-              className="w-full h-full object-cover"
-              alt={meal.foodName}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute bottom-10 left-10">
-              <span
-                className={`${meal.type === "veg" ? "bg-green-600" : "bg-red-600"} px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl`}
-              >
-                {meal.type}
-              </span>
+          <div className="animate-up flex flex-col gap-6">
+            <div className="relative aspect-square lg:aspect-auto lg:h-[60vh] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl">
+              <img
+                src={activeImage}
+                className="w-full h-full object-cover transition-opacity duration-300"
+                alt={meal.foodName}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-8 left-8">
+                <span
+                  className={`${meal.type === "veg" ? "bg-green-500 text-black border-green-400" : "bg-red-500 text-[#fafafa] border-red-400"} px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl border`}
+                >
+                  {meal.type}
+                </span>
+              </div>
             </div>
+
+            {/* THUMBNAILS GALLERY */}
+            {displayImages.length > 1 && (
+              <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+                {displayImages.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImage(img)}
+                    className={`w-24 h-24 shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${activeImage === img ? 'border-orange-500 ring-4 ring-orange-500/20' : 'border-white/5 opacity-50 hover:opacity-100'}`}
+                  >
+                    <img src={img} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* RIGHT: CONTENT SECTION */}
@@ -129,7 +152,7 @@ export default function MealDetailPage() {
                   {meal.foodName.split(" ").slice(1).join(" ")}
                 </span>
               </h1>
-              <p className="text-4xl font-black mt-6 text-white tracking-tight">
+              <p className="text-4xl font-black mt-6 text-[#fafafa] tracking-tight">
                 ₹{meal.price}
               </p>
             </div>
@@ -138,11 +161,11 @@ export default function MealDetailPage() {
               <h4 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500">
                 <Info size={16} /> About this meal
               </h4>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
+              <p className="text-gray-500 text-lg leading-relaxed max-w-xl">
                 {meal.description ||
                   "A masterfully crafted student meal prepared with fresh ingredients. High protein, balanced nutrition, and delivered straight from the kitchen of " +
-                    meal.hotelName +
-                    "."}
+                  meal.hotelName +
+                  "."}
               </p>
             </div>
 
@@ -150,13 +173,13 @@ export default function MealDetailPage() {
             <div className="animate-up flex flex-col sm:flex-row gap-4 pt-8">
               <button
                 onClick={() => router.push(`/Checkout/${meal.id}`)}
-                className="flex-1 bg-orange-600 hover:bg-orange-500 text-white py-6 rounded-[1.5rem] font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95"
+                className="flex-1 bg-orange-600 hover:bg-orange-500 text-[#fafafa] py-6 rounded-[1.5rem] font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95"
               >
                 <ShoppingCart size={18} /> Buy Now
               </button>
               <button
-              onClick={() => router.push(`/prebook/${meal.id}`)}
-              className="flex-1 border border-white/20 hover:bg-white hover:text-black text-white py-6 rounded-[1.5rem] font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95">
+                onClick={() => router.push(`/prebook/${meal.id}`)}
+                className="flex-1 border border-white/20 hover:bg-white hover:text-black text-[#fafafa] py-6 rounded-[1.5rem] font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95">
                 <CalendarCheck size={18} /> Pre-Book
               </button>
             </div>

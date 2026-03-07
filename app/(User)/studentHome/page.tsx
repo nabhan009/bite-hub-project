@@ -81,7 +81,7 @@ export default function StudentHome() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#050505] text-white selection:bg-orange-500/30 overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-[#050505] text-[#fafafa] selection:bg-orange-500/30 overflow-x-hidden">
       <NavbarPersonalized />
 
       {/* --- HERO SECTION (Pinned/Sticky) --- */}

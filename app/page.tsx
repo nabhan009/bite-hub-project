@@ -38,7 +38,7 @@ export default function Home() {
 
   // Loading screen while redirecting
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[#050505] text-[#fafafa]">
       <h1 className="text-4xl font-black italic tracking-tighter">
         Redirecting to <span className="text-orange-500">BiteHub...</span>
       </h1>

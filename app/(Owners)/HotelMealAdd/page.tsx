@@ -27,8 +27,8 @@ export default function AddMealPage() {
     price: "",
     restaurantId: "",
     type: "veg",
-    image: "",
-    expiryTime: "",
+    images: [""],
+    expiryTime: "1",
   });
 
   // Entrance Animation
@@ -52,60 +52,61 @@ export default function AddMealPage() {
     return now.toISOString(); // convert to ISO format
   };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const loggedUser =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("bitehub_user") || "null")
-      : null;
+    const loggedUser =
+      typeof window !== "undefined"
+        ? JSON.parse(localStorage.getItem("bitehub_user") || "null")
+        : null;
 
-  // NOT LOGGED IN
-  if (!loggedUser?.id) {
-    toast.error("Restaurant not logged in!");
-    setLoading(false);
-    return;
-  }
+    // NOT LOGGED IN
+    if (!loggedUser?.id) {
+      toast.error("Restaurant not logged in!");
+      setLoading(false);
+      return;
+    }
 
-  // LOCATION NOT ADDED
-  if (!loggedUser?.lat || !loggedUser?.lng) {
-    toast.error("Please add your restaurant location before adding meals!.on your profile page");
-    router.push("/HotelProfile"); // Redirect to profile page
-    setLoading(false);
-    return;
-  }
+    // LOCATION NOT ADDED
+    if (!loggedUser?.lat || !loggedUser?.lng) {
+      toast.error("Please add your restaurant location before adding meals!.on your profile page");
+      router.push("/HotelProfile"); // Redirect to profile page
+      setLoading(false);
+      return;
+    }
 
-  try {
-    await api.post("/meals", {
-      ...formData,
-      restaurantId: loggedUser.id,
-      restaurantLat: loggedUser.lat,   // save location in meal also 
-      restaurantLng: loggedUser.lng,
-      price: Number(formData.price),
-      expiryTime: convertToExpiryISO(Number(formData.expiryTime)),
-      id: Math.random().toString(36).substring(2, 9)
-    });
+    try {
+      await api.post("/meals", {
+        ...formData,
+        image: formData.images[0] || "",
+        restaurantId: loggedUser.id,
+        restaurantLat: loggedUser.lat,   // save location in meal also 
+        restaurantLng: loggedUser.lng,
+        price: Number(formData.price),
+        expiryTime: convertToExpiryISO(Number(formData.expiryTime)),
+        id: Math.random().toString(36).substring(2, 9)
+      });
 
-    toast.success("Meal published to BiteHub!");
-    router.push("/studentMeals");
-  } catch (err) {
-    toast.error("Failed to add meal");
-  } finally {
-    setLoading(false);
-  }
-};
+      toast.success("Meal published to BiteHub!");
+      router.push("/studentMeals");
+    } catch (err) {
+      toast.error("Failed to add meal");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-[#050505] text-white pt-10 pb-20 px-6"
+      className="min-h-screen bg-[#050505] text-[#fafafa] pt-10 pb-20 px-6"
     >
       <div className="max-w-6xl mx-auto">
         <button
           onClick={() => router.back()}
-          className="animate-item flex items-center gap-2 text-gray-500 hover:text-white transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
+          className="animate-item flex items-center gap-2 text-gray-500 hover:text-[#fafafa] transition-colors mb-10 text-[10px] font-black uppercase tracking-widest"
         >
           <ArrowLeft size={16} /> Back to Dashboard
         </button>
@@ -193,19 +194,45 @@ const handleSubmit = async (e: React.FormEvent) => {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <label className="text-[10px] font-black uppercase text-gray-500 tracking-widest ml-1 italic">
-                  Image URL
+                  Image URLs (First image is primary)
                 </label>
-                <input
-                  required
-                  type="url"
-                  placeholder="https://unsplash.com/your-food-image"
-                  className="input-style"
-                  onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.value })
-                  }
-                />
+                {formData.images.map((img, idx) => (
+                  <div key={idx} className="flex gap-3">
+                    <input
+                      required
+                      type="url"
+                      placeholder="https://unsplash.com/your-food-image"
+                      className="input-style"
+                      value={img}
+                      onChange={(e) => {
+                        const newImages = [...formData.images];
+                        newImages[idx] = e.target.value;
+                        setFormData({ ...formData, images: newImages });
+                      }}
+                    />
+                    {idx > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newImages = formData.images.filter((_, i) => i !== idx);
+                          setFormData({ ...formData, images: newImages });
+                        }}
+                        className="bg-red-500/10 text-red-500 px-6 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-red-500 hover:text-[#fafafa] transition-all"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, images: [...formData.images, ""] })}
+                  className="text-orange-500 text-[10px] font-black uppercase tracking-widest hover:text-[#fafafa] transition-colors flex items-center gap-2 mt-2"
+                >
+                  <PlusCircle size={14} /> Add Another Image
+                </button>
               </div>
 
               <div className="space-y-2">
@@ -247,13 +274,18 @@ const handleSubmit = async (e: React.FormEvent) => {
             {/* The actual meal card UI used in StudentMeals */}
             <div className="bg-[#0d0d0d] border border-orange-500/30 rounded-[2.5rem] overflow-hidden shadow-2xl relative">
               <div className="relative h-64 w-full bg-neutral-900 flex items-center justify-center overflow-hidden">
-                {formData.image ? (
+                {formData.images[0] ? (
                   <img
-                    src={formData.image}
+                    src={formData.images[0]}
                     className="w-full h-full object-cover"
                   />
                 ) : (
                   <ImageIcon size={48} className="text-white/10" />
+                )}
+                {formData.images.length > 1 && (
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 text-[9px] font-black uppercase tracking-widest rounded-xl border border-white/5">
+                    +{formData.images.length - 1} More
+                  </div>
                 )}
                 <div className="absolute top-4 left-4 flex gap-2">
                   <span
@@ -269,7 +301,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <div className="p-8">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                  <h3 className="text-[#737373] text-[10px] font-black uppercase tracking-[0.2em]">
+                  <h3 className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em]">
                     {formData.hotelName || "RESTAURANT NAME"}
                   </h3>
                 </div>

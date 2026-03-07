@@ -86,45 +86,45 @@ export default function Login() {
           <h2 ref={titleRef} className="text-4xl font-black text-[#fafafa] tracking-tight mb-3 cursor-default">
             Welcome Back
           </h2>
-          <p className="text-[#737373] text-xs font-bold uppercase tracking-[0.2em] opacity-70">
+          <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] opacity-70">
             Fueling students • Reducing waste
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
-            <label className="label-email block text-xs font-black text-[#737373] uppercase tracking-widest ml-1">Email</label>
+            <label className="label-email block text-xs font-black text-gray-500 uppercase tracking-widest ml-1">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
               required
               onFocus={() => handleInputFocus("email", true)}
               onBlur={() => handleInputFocus("email", false)}
-              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-white focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
+              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-[#fafafa] focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="space-y-2">
-            <label className="label-password block text-xs font-black text-[#737373] uppercase tracking-widest ml-1">Password</label>
+            <label className="label-password block text-xs font-black text-gray-500 uppercase tracking-widest ml-1">Password</label>
             <input
               type="password"
               placeholder="••••••••"
               required
               onFocus={() => handleInputFocus("password", true)}
               onBlur={() => handleInputFocus("password", false)}
-              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-white focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
+              className="w-full p-4 rounded-2xl bg-[#141414] border border-white/[0.03] text-[#fafafa] focus:border-orange-600 outline-none transition-all placeholder:text-[#333]"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button className="w-full mt-4 bg-orange-600 hover:bg-orange-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_10px_30px_rgba(234,88,12,0.2)] active:scale-95 uppercase tracking-widest text-sm">
+          <button className="w-full mt-4 bg-orange-600 hover:bg-orange-500 text-[#fafafa] font-black py-4 rounded-2xl transition-all shadow-[0_10px_30px_rgba(234,88,12,0.2)] active:scale-95 uppercase tracking-widest text-sm">
             Enter BiteHub
           </button>
         </form>
 
         <div className="mt-8 text-center">
-          <Link href="/Register" className="text-[#737373] text-sm hover:text-orange-500 transition-colors inline-block group">
+          <Link href="/Register" className="text-gray-500 text-sm hover:text-orange-500 transition-colors inline-block group">
             New here? <span className="text-orange-500 font-bold group-hover:underline underline-offset-4">Create account</span>
           </Link>
         </div>

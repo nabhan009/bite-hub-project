@@ -38,7 +38,7 @@ export default function HotelHome() {
       const user = JSON.parse(userStr);
 
       // 1. Join the hotel's room based on their ID
-      if (user.role === "hotel" && user.id) {
+      if ((user.role === "hotel" || user.role === "restaurant") && user.id) {
         socket.emit("joinHotel", user.id);
 
         // 2. Listen for the 'orderNotification' event coming from Checkout
@@ -99,7 +99,7 @@ export default function HotelHome() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="bg-[#050505] text-white overflow-x-hidden">
+    <div ref={containerRef} className="bg-[#050505] text-[#fafafa] overflow-x-hidden">
       <NavbarRestaurant />
 
       {/* --- HERO SECTION (Sticky) --- */}
@@ -120,7 +120,7 @@ export default function HotelHome() {
           <div className="hero-cta mt-12">
             <button
               onClick={() => router.push("/HotelMealAdd")}
-              className="group flex items-center gap-3 px-12 py-5 bg-white text-black rounded-full font-black uppercase text-xs tracking-widest hover:bg-orange-500 hover:text-white transition-all duration-500 shadow-2xl"
+              className="group flex items-center gap-3 px-12 py-5 bg-white text-black rounded-full font-black uppercase text-xs tracking-widest hover:bg-orange-500 hover:text-[#fafafa] transition-all duration-500 shadow-2xl"
             >
               Post Surplus Meal <PlusCircle size={18} />
             </button>
@@ -161,8 +161,8 @@ export default function HotelHome() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
               <div className="absolute bottom-10 left-10">
                 <h3 className="text-4xl font-black uppercase italic mb-4">Post a <span className="text-orange-500">New Meal</span></h3>
-                <p className="text-gray-400 max-w-xs mb-6">Instantly list your surplus food to the live student feed in under 30 seconds.</p>
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                <p className="text-gray-500 max-w-xs mb-6">Instantly list your surplus food to the live student feed in under 30 seconds.</p>
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black group-hover:bg-orange-500 group-hover:text-[#fafafa] transition-colors">
                   <ChevronRight />
                 </div>
               </div>
@@ -177,8 +177,8 @@ export default function HotelHome() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
               <div className="absolute bottom-10 left-10">
                 <h3 className="text-4xl font-black uppercase italic mb-4">View <span className="text-orange-500">History</span></h3>
-                <p className="text-gray-400 max-w-xs mb-6">Track your donation metrics and see your sustainability impact.</p>
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                <p className="text-gray-500 max-w-xs mb-6">Track your donation metrics and see your sustainability impact.</p>
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-black group-hover:bg-orange-500 group-hover:text-[#fafafa] transition-colors">
                   <ChevronRight />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export default function HotelHome() {
           <div className="bg-orange-500/5 rounded-[4rem] p-12 md:p-20 flex flex-col md:flex-row items-center justify-between border border-orange-500/10">
             <div className="text-center md:text-left">
               <h2 className="text-4xl md:text-6xl font-black uppercase italic mb-4">Ready to <span className="text-orange-500">Donate?</span></h2>
-              <p className="text-gray-400 font-medium">Your surplus could be someone's next meal. Start the cycle now.</p>
+              <p className="text-gray-500 font-medium">Your surplus could be someone's next meal. Start the cycle now.</p>
             </div>
             {/* <button 
                 onClick={() => router.push("/hotelPostMeal")}

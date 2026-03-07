@@ -47,7 +47,7 @@ export default function StudentManagement() {
       <main className="flex-1 ml-16 md:ml-20 p-4 md:p-10 overflow-x-hidden overflow-y-auto">
         <header className="mb-10">
           <h1 className="text-4xl font-black uppercase tracking-tighter italic">Student <span className="text-orange-500">Directory</span></h1>
-          <p className="text-[#737373] text-[10px] md:text-xs font-bold uppercase mt-2 tracking-widest">Manage community access and verification</p>
+          <p className="text-gray-500 text-[10px] md:text-xs font-bold uppercase mt-2 tracking-widest">Manage community access and verification</p>
         </header>
 
         <div className="relative mb-6">
@@ -63,9 +63,9 @@ export default function StudentManagement() {
           <table className="w-full text-left min-w-[500px]">
             <thead className="bg-white/[0.02] border-b border-white/5">
               <tr>
-                <th className="p-6 text-[10px] font-black uppercase text-[#737373]">Student Info</th>
-                <th className="p-6 text-[10px] font-black uppercase text-[#737373]">Status</th>
-                <th className="p-6 text-[10px] font-black uppercase text-[#737373] text-right">Control</th>
+                <th className="p-6 text-[10px] font-black uppercase text-gray-500">Student Info</th>
+                <th className="p-6 text-[10px] font-black uppercase text-gray-500">Status</th>
+                <th className="p-6 text-[10px] font-black uppercase text-gray-500 text-right">Control</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +87,7 @@ export default function StudentManagement() {
                     <button onClick={() => handleStatus(s.id, !!s.isBlocked)} className="p-2 bg-white/5 rounded-lg hover:bg-orange-500 transition-all">
                       {s.isBlocked ? <ShieldCheck size={16} /> : <UserX size={16} />}
                     </button>
-                    <button onClick={() => { if (confirm("Delete student?")) api.delete(`/users/${s.id}`).then(fetchStudents) }} className="p-2 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all">
+                    <button onClick={() => { if (confirm("Delete student?")) api.delete(`/users/${s.id}`).then(fetchStudents) }} className="p-2 bg-red-500/10 text-red-500 rounded-lg hover:bg-red-500 hover:text-[#fafafa] transition-all">
                       <Trash2 size={16} />
                     </button>
                   </td>

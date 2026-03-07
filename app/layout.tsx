@@ -4,7 +4,6 @@ import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import { Toaster } from "sonner";
 import { AuthProvider, useAuth } from "./(auth)/Context";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,16 +25,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html  lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>{children}</AuthProvider>
 
 
-        <Toaster 
-          theme="dark" 
-          position="top-center" 
+        <Toaster
+          theme="dark"
+          position="top-center"
           expand={false} // Keeps them stacked nicely
           richColors={false} // We will use our own custom colors
           toastOptions={{

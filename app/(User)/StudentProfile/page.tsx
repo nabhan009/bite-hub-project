@@ -91,11 +91,11 @@
 //   };
 
 //   return (
-//     <div ref={containerRef} className="min-h-screen bg-[#050505] text-white p-6 md:p-12 lg:p-20 pt-32">
+//     <div ref={containerRef} className="min-h-screen bg-[#050505] text-[#fafafa] p-6 md:p-12 lg:p-20 pt-32">
 //       <div className="max-w-6xl mx-auto">
         
 //         {/* HEADER SECTION */}
-//         <header className="flex justify-between items-end mb-12 border-b border-white/10 pb-8">
+//         <header className="flex justify-between items-end mb-12 border-b border-white/5 pb-8">
 //           <div>
 //             <h1 className="text-5xl font-black uppercase tracking-tighter">
 //               My <span className="text-orange-500 italic">Bite</span>
@@ -116,7 +116,7 @@
 //                 <User className="text-orange-500" size={20} /> Identity
 //               </h3>
 //               {!isEditing && (
-//                 <button onClick={() => setIsEditing(true)} className="text-gray-500 hover:text-white transition-colors">
+//                 <button onClick={() => setIsEditing(true)} className="text-gray-500 hover:text-[#fafafa] transition-colors">
 //                   <Edit3 size={18} />
 //                 </button>
 //               )}
@@ -156,7 +156,7 @@
 //                   <button 
 //                     type="button"
 //                     onClick={() => setShowPin(!showPin)}
-//                     className="absolute right-0 p-6 text-gray-500 hover:text-white transition-colors"
+//                     className="absolute right-0 p-6 text-gray-500 hover:text-[#fafafa] transition-colors"
 //                   >
 //                     {showPin ? <EyeOff size={18} /> : <Eye size={18} />}
 //                   </button>
@@ -192,8 +192,8 @@
 //           {/* RIGHT COLUMN: HISTORY */}
 //           <div className="profile-card lg:col-span-2 space-y-6">
 //             <div className="flex gap-4 p-1 bg-[#0c0c0c] rounded-2xl w-fit border border-white/5">
-//                 <button onClick={() => setActiveTab("booked")} className={`px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all ${activeTab === "booked" ? "bg-orange-600 text-white shadow-lg" : "text-gray-500 hover:text-white"}`}>Reservations</button>
-//                 <button onClick={() => setActiveTab("bought")} className={`px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all ${activeTab === "bought" ? "bg-orange-600 text-white shadow-lg" : "text-gray-500 hover:text-white"}`}>History</button>
+//                 <button onClick={() => setActiveTab("booked")} className={`px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all ${activeTab === "booked" ? "bg-orange-600 text-[#fafafa] shadow-lg" : "text-gray-500 hover:text-[#fafafa]"}`}>Reservations</button>
+//                 <button onClick={() => setActiveTab("bought")} className={`px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest transition-all ${activeTab === "bought" ? "bg-orange-600 text-[#fafafa] shadow-lg" : "text-gray-500 hover:text-[#fafafa]"}`}>History</button>
 //             </div>
             
 //             <div className="bg-[#0c0c0c] rounded-[2.5rem] border border-white/5 p-8 h-[50vh] flex items-center justify-center text-gray-600 font-bold uppercase tracking-widest text-[10px]">
@@ -311,9 +311,9 @@ useEffect(() => {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#050505] text-white p-6 md:p-12 lg:p-20 pt-32">
+    <div ref={containerRef} className="min-h-screen bg-[#050505] text-[#fafafa] p-6 md:p-12 lg:p-20 pt-32">
       <div className="max-w-6xl mx-auto">
-        <header className="flex justify-between items-end mb-12 border-b border-white/10 pb-8">
+        <header className="flex justify-between items-end mb-12 border-b border-white/5 pb-8">
           <div>
             <h1 className="text-5xl font-black uppercase tracking-tighter">
               My <span className="text-orange-500 italic">Bite</span>
@@ -339,7 +339,7 @@ useEffect(() => {
                 <User className="text-orange-500" size={20} /> Identity
               </h3>
               {!isEditing && (
-                <button onClick={() => setIsEditing(true)} className="text-gray-500 hover:text-white transition-colors">
+                <button onClick={() => setIsEditing(true)} className="text-gray-500 hover:text-[#fafafa] transition-colors">
                   <Edit3 size={18} />
                 </button>
               )}
@@ -353,7 +353,7 @@ useEffect(() => {
                   disabled={!isEditing}
                   value={userData.name}
                   onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 transition-colors disabled:opacity-50"
+                  className="w-full bg-black/50 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -365,7 +365,7 @@ useEffect(() => {
                   disabled={!isEditing}
                   value={userData.pin}
                   onChange={(e) => setUserData({ ...userData, pin: e.target.value.replace(/\D/g, "") })}
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 transition-colors disabled:opacity-50 font-mono tracking-widest"
+                  className="w-full bg-black/50 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 transition-colors disabled:opacity-50 font-mono tracking-widest"
                 />
               </div>
 
@@ -380,8 +380,8 @@ useEffect(() => {
 
           <div className="profile-card lg:col-span-2 space-y-6">
             <div className="flex gap-4 p-1 bg-[#0c0c0c] rounded-2xl w-fit border border-white/5">
-              <button onClick={() => setActiveTab("booked")} className={`px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all ${activeTab === "booked" ? "bg-orange-600 text-white" : "text-gray-500 hover:text-white"}`}>Booked Meals</button>
-              <button onClick={() => setActiveTab("bought")} className={`px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all ${activeTab === "bought" ? "bg-orange-600 text-white" : "text-gray-500 hover:text-white"}`}>Purchase History</button>
+              <button onClick={() => setActiveTab("booked")} className={`px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all ${activeTab === "booked" ? "bg-orange-600 text-[#fafafa]" : "text-gray-500 hover:text-[#fafafa]"}`}>Booked Meals</button>
+              <button onClick={() => setActiveTab("bought")} className={`px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all ${activeTab === "bought" ? "bg-orange-600 text-[#fafafa]" : "text-gray-500 hover:text-[#fafafa]"}`}>Purchase History</button>
             </div>
 
             <div className="bg-[#0c0c0c] rounded-[2rem] border border-white/5 overflow-hidden">
@@ -417,7 +417,7 @@ function MealItem({ icon, title, date, status, price, code }: any) {
       <div className="text-right">
         <div className="flex items-center gap-2 justify-end mb-1">
           <Ticket size={12} className="text-orange-500" />
-          <span className="font-mono text-sm font-bold text-white tracking-widest">{code}</span>
+          <span className="font-mono text-sm font-bold text-[#fafafa] tracking-widest">{code}</span>
         </div>
         <p className="text-[10px] font-black uppercase tracking-widest text-orange-500">{status} {price && `• ${price}`}</p>
       </div>

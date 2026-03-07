@@ -10,7 +10,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
+    methods: ["GET", "POST"]
   },
 });
 
@@ -18,10 +19,12 @@ io.on("connection", (socket) => {
   console.log("Connected:", socket.id);
 
   socket.on("joinHotel", (hotelId) => {
+    console.log(`[Socket] Hotel joined room: hotel_${hotelId}`);
     socket.join(`hotel_${hotelId}`);
   });
 
   socket.on("newOrder", (order) => {
+    console.log(`[Socket] New order received for hotel: hotel_${order.hotelId}`, order);
     io.to(`hotel_${order.hotelId}`).emit("orderNotification", order);
   });
 

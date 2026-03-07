@@ -70,14 +70,14 @@ export default function AdminLogs() {
             <h1 className="text-4xl font-black uppercase tracking-tighter italic leading-none">
               Live <span className="text-orange-500">Logs</span>
             </h1>
-            <p className="text-[#737373] text-xs font-bold uppercase tracking-widest mt-2">
+            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-2">
               Auditing the flow of surplus food
             </p>
           </div>
 
           <button
             onClick={exportData}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all shadow-xl"
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-[#fafafa] transition-all shadow-xl"
           >
             <Download size={14} /> Export Monthly Data
           </button>
@@ -99,7 +99,7 @@ export default function AdminLogs() {
               <button
                 key={t}
                 onClick={() => setFilter(t)}
-                className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${filter === t ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'text-[#737373] hover:text-white'}`}
+                className={`px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all ${filter === t ? 'bg-orange-500 text-[#fafafa] shadow-lg shadow-orange-500/20' : 'text-gray-500 hover:text-[#fafafa]'}`}
               >
                 {t}
               </button>
@@ -112,10 +112,10 @@ export default function AdminLogs() {
           <table className="w-full text-left min-w-[700px]">
             <thead className="bg-white/[0.02] border-b border-white/5">
               <tr>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-[#737373]">Transaction ID</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-[#737373]">Details</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-[#737373]">Status</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-[#737373] text-right">Verification Code</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-gray-500">Transaction ID</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-gray-500">Details</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-gray-500">Status</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-gray-500 text-right">Verification Code</th>
               </tr>
             </thead>
             <tbody>
@@ -130,8 +130,8 @@ export default function AdminLogs() {
                         <ArrowRightLeft size={14} />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-white">{log.mealName}</p>
-                        <p className="text-[10px] text-[#737373] uppercase font-bold tracking-tighter">
+                        <p className="text-xs font-bold text-[#fafafa]">{log.mealName}</p>
+                        <p className="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">
                           {log.customerName} @ {log.hotelName}
                         </p>
                       </div>
@@ -143,7 +143,7 @@ export default function AdminLogs() {
                   <td className="p-6 text-right">
                     <div className="inline-flex items-center gap-2 bg-[#141414] border border-white/5 px-4 py-2 rounded-xl group hover:border-orange-500/50 transition-all cursor-help">
                       <Hash size={12} className="text-orange-500" />
-                      <span className="font-mono font-black text-xs text-white tracking-widest">
+                      <span className="font-mono font-black text-xs text-[#fafafa] tracking-widest">
                         {log.bookingRef || "N/A"}
                       </span>
                     </div>

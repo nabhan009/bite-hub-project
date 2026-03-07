@@ -69,7 +69,7 @@
 //                         <h1 className="text-4xl font-black uppercase tracking-tighter italic leading-none">
 //                             Platform <span className="text-orange-500">Meals</span>
 //                         </h1>
-//                         <p className="text-[#737373] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">
+//                         <p className="text-gray-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">
 //                             Centralized view of all surplus food across the network
 //                         </p>
 //                     </div>
@@ -89,13 +89,13 @@
 //                     <div className="flex items-center bg-[#0d0d0d] p-1.5 rounded-2xl border border-white/5 group relative min-w-[200px]">
 //                         <Building2 className="absolute left-4 text-[#404040]" size={16} />
 //                         <select
-//                             className="w-full bg-transparent appearance-none pl-12 pr-4 py-3 text-xs font-bold uppercase tracking-widest text-[#737373] focus:text-white outline-none cursor-pointer"
+//                             className="w-full bg-transparent appearance-none pl-12 pr-4 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 focus:text-[#fafafa] outline-none cursor-pointer"
 //                             value={filterHotel}
 //                             onChange={(e) => setFilterHotel(e.target.value)}
 //                         >
-//                             <option value="All" className="bg-[#0d0d0d] text-white">All Hotels</option>
+//                             <option value="All" className="bg-[#0d0d0d] text-[#fafafa]">All Hotels</option>
 //                             {hotels.map((h, i) => (
-//                                 <option key={i} value={h.hotelName} className="bg-[#0d0d0d] text-white">
+//                                 <option key={i} value={h.hotelName} className="bg-[#0d0d0d] text-[#fafafa]">
 //                                     {h.hotelName}
 //                                 </option>
 //                             ))}
@@ -110,14 +110,14 @@
 //                             <div className="relative h-48 w-full overflow-hidden">
 //                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent z-10" />
 //                                 <img src={meal.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c"} alt={meal.foodName} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-//                                 <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-xl flex items-center gap-2">
+//                                 <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md border border-white/5 px-3 py-1.5 rounded-xl flex items-center gap-2">
 //                                     <UtensilsCrossed size={12} className={meal.type === 'veg' ? 'text-green-500' : 'text-red-500'} />
 //                                     <span className="text-[9px] font-black uppercase tracking-widest">{meal.type || 'Unknown'}</span>
 //                                 </div>
 //                             </div>
 
 //                             <div className="p-6 flex flex-col flex-1">
-//                                 <h2 className="text-xl font-black uppercase leading-tight tracking-tight text-white mb-2">{meal.foodName}</h2>
+//                                 <h2 className="text-xl font-black uppercase leading-tight tracking-tight text-[#fafafa] mb-2">{meal.foodName}</h2>
 
 //                                 <div className="flex items-center gap-2 text-orange-500 mb-6 focus-within:">
 //                                     <Hotel size={14} />
@@ -126,15 +126,15 @@
 
 //                                 <div className="mt-auto space-y-3 pt-4 border-t border-white/5">
 //                                     <div className="flex justify-between items-center">
-//                                         <span className="text-[10px] text-[#737373] font-bold uppercase tracking-widest">Price</span>
+//                                         <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Price</span>
 //                                         <span className="text-lg font-black italic">₹{meal.price}</span>
 //                                     </div>
 //                                     <div className="flex justify-between items-center bg-white/5 px-4 py-2 rounded-xl">
-//                                         <div className="flex items-center gap-2 text-[#737373]">
+//                                         <div className="flex items-center gap-2 text-gray-500">
 //                                             <Clock size={12} />
 //                                             <span className="text-[9px] font-bold uppercase tracking-widest">Expires</span>
 //                                         </div>
-//                                         <span className="text-[10px] font-bold text-white uppercase">{timeLeft}</span>
+//                                         <span className="text-[10px] font-bold text-[#fafafa] uppercase">{timeLeft}</span>
 //                                     </div>
 //                                 </div>
 //                             </div>
@@ -180,14 +180,14 @@ const MealCard = ({ meal }: { meal: any }) => {
                     alt={meal.foodName} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                 />
-                <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-xl flex items-center gap-2">
+                <div className="absolute top-4 right-4 z-20 bg-black/60 backdrop-blur-md border border-white/5 px-3 py-1.5 rounded-xl flex items-center gap-2">
                     <UtensilsCrossed size={12} className={meal.type === 'veg' ? 'text-green-500' : 'text-red-500'} />
                     <span className="text-[9px] font-black uppercase tracking-widest">{meal.type || 'Unknown'}</span>
                 </div>
             </div>
 
             <div className="p-6 flex flex-col flex-1">
-                <h2 className="text-xl font-black uppercase leading-tight tracking-tight text-white mb-2 truncate">
+                <h2 className="text-xl font-black uppercase leading-tight tracking-tight text-[#fafafa] mb-2 truncate">
                     {meal.foodName}
                 </h2>
 
@@ -198,15 +198,15 @@ const MealCard = ({ meal }: { meal: any }) => {
 
                 <div className="mt-auto space-y-3 pt-4 border-t border-white/5">
                     <div className="flex justify-between items-center">
-                        <span className="text-[10px] text-[#737373] font-bold uppercase tracking-widest">Price</span>
+                        <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Price</span>
                         <span className="text-lg font-black italic">₹{meal.price}</span>
                     </div>
                     <div className="flex justify-between items-center bg-white/5 px-4 py-2 rounded-xl">
-                        <div className="flex items-center gap-2 text-[#737373]">
+                        <div className="flex items-center gap-2 text-gray-500">
                             <Clock size={12} />
                             <span className="text-[9px] font-bold uppercase tracking-widest">Expires</span>
                         </div>
-                        <span className={`text-[10px] font-bold uppercase ${timeLeft === "Expired" ? "text-red-500" : "text-white"}`}>
+                        <span className={`text-[10px] font-bold uppercase ${timeLeft === "Expired" ? "text-red-500" : "text-[#fafafa]"}`}>
                             {timeLeft}
                         </span>
                     </div>
@@ -268,7 +268,7 @@ export default function MealsManagement() {
                     <h1 className="text-4xl font-black uppercase tracking-tighter italic leading-none">
                         Platform <span className="text-orange-500">Meals</span>
                     </h1>
-                    <p className="text-[#737373] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">
+                    <p className="text-gray-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-2">
                         Centralized view of all surplus food across the network
                     </p>
                 </header>
@@ -286,13 +286,13 @@ export default function MealsManagement() {
                     <div className="flex items-center bg-[#0d0d0d] p-1.5 rounded-2xl border border-white/5 group relative min-w-[200px]">
                         <Building2 className="absolute left-4 text-[#404040]" size={16} />
                         <select
-                            className="w-full bg-transparent appearance-none pl-12 pr-4 py-3 text-xs font-bold uppercase tracking-widest text-[#737373] focus:text-white outline-none cursor-pointer"
+                            className="w-full bg-transparent appearance-none pl-12 pr-4 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 focus:text-[#fafafa] outline-none cursor-pointer"
                             value={filterHotel}
                             onChange={(e) => setFilterHotel(e.target.value)}
                         >
-                            <option value="All" className="bg-[#0d0d0d] text-white">All Hotels</option>
+                            <option value="All" className="bg-[#0d0d0d] text-[#fafafa]">All Hotels</option>
                             {hotels.map((h, i) => (
-                                <option key={i} value={h.hotelName} className="bg-[#0d0d0d] text-white">{h.hotelName}</option>
+                                <option key={i} value={h.hotelName} className="bg-[#0d0d0d] text-[#fafafa]">{h.hotelName}</option>
                             ))}
                         </select>
                     </div>

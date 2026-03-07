@@ -139,7 +139,7 @@ export default function Footer() {
         
         {/* Brand Logo */}
         <div className="mb-12 group cursor-default">
-          <h2 className="text-4xl font-black italic tracking-tighter text-white transition-transform duration-500 group-hover:scale-105">
+          <h2 className="text-4xl font-black italic tracking-tighter text-[#fafafa] transition-transform duration-500 group-hover:scale-105">
             BITE<span className="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.3)]">HUB</span>
           </h2>
         </div>

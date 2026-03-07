@@ -57,7 +57,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#050505] text-white p-6 pt-32 selection:bg-orange-500/30">
+    <div ref={containerRef} className="min-h-screen bg-[#050505] text-[#fafafa] p-6 pt-32 selection:bg-orange-500/30">
       <div className="max-w-7xl mx-auto">
         
         {/* --- HEADER --- */}
@@ -87,7 +87,7 @@ export default function ContactPage() {
 
             <div className="contact-info-item">
               <p className="text-orange-500 text-[10px] font-black uppercase tracking-widest mb-2 italic">/ Office</p>
-              <p className="text-xl text-gray-400 max-w-sm">
+              <p className="text-xl text-gray-500 max-w-sm">
                 123 Culinary Drive, <br />
                 Foodie District, NY 10012
               </p>
@@ -97,7 +97,7 @@ export default function ContactPage() {
             <div className="contact-info-item flex gap-6 pt-10">
               {[Instagram, Twitter, Facebook].map((Icon, i) => (
                 <div key={i} className="social-icon bg-[#0d0d0d] p-5 rounded-full border border-white/5 cursor-pointer hover:border-orange-500/50 transition-colors">
-                  <Icon size={24} className="text-white" />
+                  <Icon size={24} className="text-[#fafafa]" />
                 </div>
               ))}
             </div>
@@ -112,20 +112,20 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-600">Your Name</label>
-                  <input type="text" required className="w-full bg-black/50 border border-white/10 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all" />
+                  <input type="text" required className="w-full bg-black/50 border border-white/5 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-600">Email Address</label>
-                  <input type="email" required className="w-full bg-black/50 border border-white/10 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all" />
+                  <input type="email" required className="w-full bg-black/50 border border-white/5 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-gray-600">Your Message</label>
-                <textarea rows={5} required className="w-full bg-black/50 border border-white/10 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all resize-none" />
+                <textarea rows={5} required className="w-full bg-black/50 border border-white/5 p-4 rounded-2xl outline-none focus:border-orange-500 transition-all resize-none" />
               </div>
 
-              <button className="w-full bg-orange-600 hover:bg-orange-500 text-white py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs transition-all flex items-center justify-center gap-3 active:scale-95 shadow-xl shadow-orange-600/20">
+              <button className="w-full bg-orange-600 hover:bg-orange-500 text-[#fafafa] py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs transition-all flex items-center justify-center gap-3 active:scale-95 shadow-xl shadow-orange-600/20">
                 <Send size={16} /> Send Message
               </button>
             </form>

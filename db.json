@@ -20,7 +20,7 @@
       "password": "zxcvbnm",
       "role": "admin",
       "createdAt": "2026-03-04T04:52:02.706Z",
-      "isloggingIn": true
+      "isloggingIn": false
     }
   ],
   "restaurants": [
@@ -36,7 +36,8 @@
       "lat": "11.279174499808903",
       "lng": "75.77786663393958",
       "createdAt": "2026-02-18T08:06:58.337Z",
-      "isloggingIn": false
+      "isloggingIn": false,
+      "closingTime": "2 AM"
     },
     {
       "id": "1772531327256",
@@ -173,6 +174,23 @@
       "restaurantLat": 11.2588,
       "restaurantLng": 75.7804,
       "expired": false
+    },
+    {
+      "id": "wx7pu1u",
+      "hotelName": "Rehmath",
+      "foodName": "Ice Creame",
+      "price": 35,
+      "restaurantId": "1771402018323",
+      "type": "veg",
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdz7O5YLx9IFznt1rGVB6UNwdRRsXJBLrrkQ&s",
+        "https://chocolatecoveredkatie.com/wp-content/uploads/2022/04/Chocolate-Sorbet.jpg"
+      ],
+      "expiryTime": "2026-03-07T07:03:20.710Z",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdz7O5YLx9IFznt1rGVB6UNwdRRsXJBLrrkQ&s",
+      "restaurantLat": "11.279174499808903",
+      "restaurantLng": "75.77786663393958",
+      "expired": true
     }
   ],
   "mealsOrdered": [
@@ -215,6 +233,62 @@
       "status": "booked",
       "bookingRef": "RES-LGGSS",
       "orderComplete": true
+    },
+    {
+      "id": "eb1b",
+      "mealId": "end42dl",
+      "mealName": "chicke",
+      "hotelName": "rahmath",
+      "price": 10,
+      "customerName": "muhamme nabhan",
+      "customerEmail": "user@gmail.com",
+      "bookingRef": "BITE-2DHBM",
+      "paymentStatus": "paid",
+      "timestamp": "2026-03-05T07:11:34.786Z",
+      "status": "processing",
+      "restaurantId": "1771402018323"
+    },
+    {
+      "id": "edb4",
+      "mealId": "2",
+      "mealName": "Chicken Curry",
+      "hotelName": "Rahmath",
+      "price": 60,
+      "customerName": "muhamme nabhan",
+      "customerEmail": "user@gmail.com",
+      "bookingRef": "BITE-WQVRT",
+      "paymentStatus": "paid",
+      "timestamp": "2026-03-05T08:10:10.616Z",
+      "status": "processing",
+      "restaurantId": "1771402018323"
+    },
+    {
+      "id": "f48a",
+      "mealId": "2",
+      "mealName": "Chicken Curry",
+      "hotelName": "Rahmath",
+      "price": 60,
+      "customerName": "muhamme nabhan",
+      "customerEmail": "user@gmail.com",
+      "bookingRef": "BITE-E3O3I",
+      "paymentStatus": "paid",
+      "timestamp": "2026-03-05T08:11:10.318Z",
+      "status": "processing",
+      "restaurantId": "1771402018323"
+    },
+    {
+      "id": "c149",
+      "mealId": "end42dl",
+      "mealName": "chicke",
+      "hotelName": "rahmath",
+      "price": 10,
+      "customerName": "muhamme nabhan",
+      "customerEmail": "user@gmail.com",
+      "bookingRef": "BITE-YNQ1C",
+      "paymentStatus": "paid",
+      "timestamp": "2026-03-05T08:12:04.917Z",
+      "status": "processing",
+      "restaurantId": "1771402018323"
     }
   ],
   "preBookedMeals": [
@@ -230,6 +304,28 @@
       "time": "11:11",
       "status": "booked",
       "bookingRef": "RES-LGGSS"
+    }
+  ],
+  "menus": [
+    {
+      "id": "de44us4",
+      "foodName": "ice cream",
+      "price": 40,
+      "type": "non-veg",
+      "image": "https://chocolatecoveredkatie.com/wp-content/uploads/2022/04/Chocolate-Sorbet.jpg",
+      "description": "How to make the best rich and creamy chocolate sorbet recipe at home, with no eggs or dairy.",
+      "hotelId": "1771402018323",
+      "hotelName": "Rahmath"
+    },
+    {
+      "id": "ud4xm66",
+      "foodName": "Chicken Pizza",
+      "price": 120,
+      "type": "non-veg",
+      "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/50/07/9f/photo0jpg.jpg?w=900&h=500&s=1",
+      "description": "Pizza is a globally popular Italian dish originating from Naples, consisting of a flattened, baked bread dough base traditionally topped with tomatoes, mozzarella cheese, and olive oil.",
+      "hotelId": "1771402018323",
+      "hotelName": "Rahmath"
     }
   ]
 }

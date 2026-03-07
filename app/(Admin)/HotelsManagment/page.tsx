@@ -33,7 +33,7 @@ export default function HotelManagement() {
       <main className="flex-1 ml-16 md:ml-20 p-4 md:p-10 overflow-x-hidden overflow-y-auto">
         <header className="mb-12">
           <h1 className="text-4xl font-black uppercase tracking-tighter italic">Partner <span className="text-orange-500">Network</span></h1>
-          <p className="text-[#737373] text-[10px] md:text-xs font-bold uppercase mt-2 tracking-widest">Kozhikode Restaurant Audit & Control</p>
+          <p className="text-gray-500 text-[10px] md:text-xs font-bold uppercase mt-2 tracking-widest">Kozhikode Restaurant Audit & Control</p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -51,18 +51,18 @@ export default function HotelManagement() {
               </div>
 
               <h2 className="text-2xl font-bold mb-1">{h.hotelName}</h2>
-              <p className="text-[#737373] text-[10px] font-bold uppercase flex items-center gap-1 mb-8"><MapPin size={10} /> {h.address}</p>
+              <p className="text-gray-500 text-[10px] font-bold uppercase flex items-center gap-1 mb-8"><MapPin size={10} /> {h.address}</p>
 
               <div className="flex gap-3">
                 <button
                   onClick={() => toggleHotel(h.id, !!h.isBlocked)}
-                  className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${h.isBlocked ? 'bg-green-500 text-white shadow-lg shadow-green-500/20' : 'bg-[#141414] text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white'}`}
+                  className={`flex-1 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${h.isBlocked ? 'bg-green-500 text-[#fafafa] shadow-lg shadow-green-500/20' : 'bg-[#141414] text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-[#fafafa]'}`}
                 >
                   {h.isBlocked ? "Activate" : "Suspend"}
                 </button>
                 <button
                   onClick={() => { if (confirm("Remove Hotel?")) api.delete(`/restaurants/${h.id}`).then(fetchHotels) }}
-                  className="p-3 bg-white/5 text-[#404040] hover:text-white hover:bg-red-500 rounded-xl transition-all"
+                  className="p-3 bg-white/5 text-[#404040] hover:text-[#fafafa] hover:bg-red-500 rounded-xl transition-all"
                 >
                   <Trash2 size={18} />
                 </button>

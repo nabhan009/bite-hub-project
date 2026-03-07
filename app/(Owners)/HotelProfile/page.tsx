@@ -138,7 +138,7 @@
 //   return (
 //     <div
 //       ref={containerRef}
-//       className="min-h-screen bg-[#050505] text-white pt-10 pb-20 px-6"
+//       className="min-h-screen bg-[#050505] text-[#fafafa] pt-10 pb-20 px-6"
 //     >
 //       <div className="max-w-7xl mx-auto">
 //         <button
@@ -179,7 +179,7 @@
 //             </div>
 //             <button
 //               onClick={logout}
-//               className="p-4 bg-red-500/5 border border-red-500/10 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all"
+//               className="p-4 bg-red-500/5 border border-red-500/10 rounded-2xl text-red-500 hover:bg-red-500 hover:text-[#fafafa] transition-all"
 //             >
 //               <LogOut size={20} />
 //             </button>
@@ -262,7 +262,7 @@
 //                     <button
 //                       type="button"
 //                       onClick={() => setShowInfo(!showInfo)}
-//                       className="text-gray-500 hover:text-white transition-colors"
+//                       className="text-gray-500 hover:text-[#fafafa] transition-colors"
 //                     >
 //                       <Info size={18} />
 //                     </button>
@@ -273,18 +273,18 @@
 //                       <p className="text-[10px] font-black uppercase text-orange-500 mb-2">
 //                         How to find your coordinates:
 //                       </p>
-//                       <ul className="text-[11px] text-gray-400 space-y-2 list-decimal ml-4 font-medium">
+//                       <ul className="text-[11px] text-gray-500 space-y-2 list-decimal ml-4 font-medium">
 //                         <li>
-//                           Open <span className="text-white">Google Maps</span>{" "}
+//                           Open <span className="text-[#fafafa]">Google Maps</span>{" "}
 //                           and find your hotel.
 //                         </li>
 //                         <li>
-//                           <span className="text-white">Right-click</span> on
+//                           <span className="text-[#fafafa]">Right-click</span> on
 //                           your hotel's exact location.
 //                         </li>
 //                         <li>
 //                           The first numbers you see (e.g., 11.25, 75.78) are
-//                           your <span className="text-white">Lat/Lng</span>.
+//                           your <span className="text-[#fafafa]">Lat/Lng</span>.
 //                         </li>
 //                         <li>Click them to copy and paste them below.</li>
 //                       </ul>
@@ -326,7 +326,7 @@
 //                         description: e.target.value,
 //                       })
 //                     }
-//                     className="w-full bg-black border border-white/5 rounded-2xl p-6 focus:border-orange-500 outline-none min-h-[140px] transition-all disabled:opacity-30 font-medium text-white"
+//                     className="w-full bg-black border border-white/5 rounded-2xl p-6 focus:border-orange-500 outline-none min-h-[140px] transition-all disabled:opacity-30 font-medium text-[#fafafa]"
 //                   />
 //                 </div>
 
@@ -410,7 +410,7 @@
 //         disabled={disabled}
 //         value={value}
 //         onChange={(e) => onChange(e.target.value)}
-//         className="w-full bg-black border border-white/5 rounded-2xl px-6 py-5 focus:border-orange-500 outline-none transition-all disabled:opacity-30 font-bold text-white placeholder:text-gray-800"
+//         className="w-full bg-black border border-white/5 rounded-2xl px-6 py-5 focus:border-orange-500 outline-none transition-all disabled:opacity-30 font-bold text-[#fafafa] placeholder:text-gray-800"
 //       />
 //     </div>
 //   );
@@ -438,7 +438,7 @@ import { useAuth } from "@/app/(auth)/Context";
 import api from "@/app/Api_instance/api";
 import { useRouter } from "next/navigation";
 
-// 🔥 MapPicker dynamic (Leaflet needs client-only)
+//  MapPicker dynamic (Leaflet needs client-only)
 const MapPicker = dynamic(() => import("@/app/components/MapPicker"), {
   ssr: false,
 });
@@ -448,6 +448,7 @@ interface HotelData {
   address: string;
   description: string;
   contact: string;
+  closingTime: string;
   lat: string;
   lng: string;
 }
@@ -464,11 +465,12 @@ export default function HotelProfile() {
     address: "",
     description: "",
     contact: "",
+    closingTime: "2 AM",
     lat: "",
     lng: "",
   });
 
-  // 🔥 Load User
+  //  Load User
   useEffect(() => {
     const storedUser = localStorage.getItem("bitehub_user");
     if (storedUser) {
@@ -480,6 +482,7 @@ export default function HotelProfile() {
           address: parsed.address || "",
           description: parsed.description || "",
           contact: parsed.contactNumber || "",
+          closingTime: parsed.closingTime || "2 AM",
           lat: parsed.lat || "",
           lng: parsed.lng || "",
         });
@@ -487,7 +490,7 @@ export default function HotelProfile() {
     }
   }, []);
 
-  // 🔥 GSAP
+  //  GSAP
   useGSAP(
     () => {
       gsap.set(".reveal-profile", { opacity: 0, y: 30 });
@@ -502,7 +505,7 @@ export default function HotelProfile() {
     { scope: containerRef }
   );
 
-  // 🔥 Update Handler
+  // Update Handler
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentUser?.id) return toast.error("Session not found.");
@@ -514,6 +517,7 @@ export default function HotelProfile() {
         address: hotelData.address,
         description: hotelData.description,
         contactNumber: hotelData.contact,
+        closingTime: hotelData.closingTime || "2 AM",
         lat: hotelData.lat,
         lng: hotelData.lng,
       };
@@ -533,7 +537,7 @@ export default function HotelProfile() {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-[#050505] text-white pt-10 pb-20 px-6"
+      className="min-h-screen bg-[#050505] text-[#fafafa] pt-10 pb-20 px-6"
     >
       <div className="max-w-5xl mx-auto">
 
@@ -572,7 +576,7 @@ export default function HotelProfile() {
 
             <button
               onClick={logout}
-              className="p-3 bg-red-500/10 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition"
+              className="p-3 bg-red-500/10 rounded-xl text-red-500 hover:bg-red-500 hover:text-[#fafafa] transition"
             >
               <LogOut size={18} />
             </button>
@@ -615,6 +619,12 @@ export default function HotelProfile() {
               value={hotelData.address}
               disabled={!isEditing}
               onChange={(v) => setHotelData({ ...hotelData, address: v })}
+            />
+            <ProfileInput
+              label="Closing Time"
+              value={hotelData.closingTime}
+              disabled={!isEditing}
+              onChange={(v) => setHotelData({ ...hotelData, closingTime: v })}
             />
 
             {/* MAP SECTION */}

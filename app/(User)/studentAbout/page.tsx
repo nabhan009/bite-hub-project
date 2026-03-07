@@ -70,13 +70,13 @@
         
 //         {/* --- Dynamic Background Images --- */}
 //         <div className="absolute inset-0 flex items-center justify-center">
-//           <div className="img-step-1 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/10 opacity-40">
+//           <div className="img-step-1 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/5 opacity-40">
 //             <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800" className="w-full h-full object-cover" alt="S1" />
 //           </div>
-//           <div className="img-step-2 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/10 opacity-0">
+//           <div className="img-step-2 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/5 opacity-0">
 //             <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" className="w-full h-full object-cover" alt="S2" />
 //           </div>
-//           <div className="img-step-3 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/10 opacity-0">
+//           <div className="img-step-3 absolute w-[40vw] h-[50vh] rounded-[3rem] overflow-hidden border border-white/5 opacity-0">
 //             <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800" className="w-full h-full object-cover" alt="S3" />
 //           </div>
 //         </div>
@@ -87,19 +87,19 @@
 //           {/* Step 1 Content */}
 //           <div className="absolute flex flex-col items-center">
 //             <p className="step-1 text-orange-500 font-black tracking-[0.5em] uppercase text-xs mb-4">Step 01</p>
-//             <h2 className="text-1 text-[12vw] font-black text-white tracking-tighter italic uppercase leading-none">Sign Up</h2>
+//             <h2 className="text-1 text-[12vw] font-black text-[#fafafa] tracking-tighter italic uppercase leading-none">Sign Up</h2>
 //           </div>
 
 //           {/* Step 2 Content */}
 //           <div className="absolute flex flex-col items-center">
 //             <p className="step-2 opacity-0 text-orange-500 font-black tracking-[0.5em] uppercase text-xs mb-4">Step 02</p>
-//             <h2 className="text-2 opacity-0 text-[10vw] font-black text-white tracking-tighter italic uppercase leading-none text-center">Pick Product</h2>
+//             <h2 className="text-2 opacity-0 text-[10vw] font-black text-[#fafafa] tracking-tighter italic uppercase leading-none text-center">Pick Product</h2>
 //           </div>
 
 //           {/* Step 3 Content */}
 //           <div className="absolute flex flex-col items-center">
 //             <p className="step-3 opacity-0 text-orange-500 font-black tracking-[0.5em] uppercase text-xs mb-4">Step 03</p>
-//             <h2 className="text-3 opacity-0 text-[10vw] font-black text-white tracking-tighter italic uppercase leading-none text-center">Enjoy Journey</h2>
+//             <h2 className="text-3 opacity-0 text-[10vw] font-black text-[#fafafa] tracking-tighter italic uppercase leading-none text-center">Enjoy Journey</h2>
 //           </div>
 
 //         </div>
@@ -234,7 +234,7 @@ export default function RestaurantScroll() {
             
             {/* Parallax Image Composite */}
             <div className="relative w-full md:w-1/2 h-[70vh]">
-              <div className="chef-image w-full h-full rounded-2xl overflow-hidden border border-white/10">
+              <div className="chef-image w-full h-full rounded-2xl overflow-hidden border border-white/5">
                 <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800" className="w-full h-full object-cover" alt="Chef" />
               </div>
               {/* Floating ingredient over the image */}
@@ -248,14 +248,14 @@ export default function RestaurantScroll() {
                 Where <span className="italic text-orange-500 underline decoration-2">Passion</span> <br /> 
                 Meets the Plate.
               </h2>
-              <p className="text-xl text-gray-400 leading-relaxed">
+              <p className="text-xl text-gray-500 leading-relaxed">
                 Founded in 2024, we set out to redefine the digital dining experience. 
                 Our platform isn't just about ordering food; it's about connecting you 
                 with the artisans of taste. We prioritize local ingredients, world-class 
                 chefs, and lightning-fast logistics.
               </p>
               
-              <div className="flex gap-10 border-t border-white/10 pt-10">
+              <div className="flex gap-10 border-t border-white/5 pt-10">
                 <div>
                   <h4 className="text-4xl font-black text-orange-500">12k+</h4>
                   <p className="text-xs uppercase tracking-widest text-gray-500">Happy Clients</p>
@@ -266,7 +266,7 @@ export default function RestaurantScroll() {
                 </div>
               </div>
 
-              <button className="px-10 py-5 bg-orange-600 hover:bg-orange-500 text-white rounded-full font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95">
+              <button className="px-10 py-5 bg-orange-600 hover:bg-orange-500 text-[#fafafa] rounded-full font-bold uppercase tracking-widest transition-all hover:scale-105 active:scale-95">
                 Explore the Menu
               </button>
             </div>
