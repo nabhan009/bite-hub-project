@@ -20,9 +20,18 @@ export default function AdminLogs() {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        // Fetching from your ordered meals endpoint
-        const res = await api.get("/mealsOrdered");
-        setLogs(res.data);
+        const [preBookedRes, collectedRes] = await Promise.all([
+          api.get("/preBookedMeals"),
+          api.get("/mealsOrdered")
+        ]);
+
+        const preBooked = preBookedRes.data.map((item: any) => ({ ...item, status: "Pre-booked" }));
+        const collected = collectedRes.data.map((item: any) => ({ ...item, status: "Collected" }));
+
+        // Combine and optionally sort by ID descending
+        const combined = [...preBooked, ...collected].sort((a, b) => b.id - a.id);
+
+        setLogs(combined);
       } catch (err) {
         toast.error("Failed to sync live logs");
       } finally {
@@ -74,13 +83,6 @@ export default function AdminLogs() {
               Auditing the flow of surplus food
             </p>
           </div>
-
-          <button
-            onClick={exportData}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-orange-500 hover:text-[#fafafa] transition-all shadow-xl"
-          >
-            <Download size={14} /> Export Monthly Data
-          </button>
         </header>
 
         {/* --- FILTERS --- */}

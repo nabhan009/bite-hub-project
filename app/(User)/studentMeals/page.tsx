@@ -260,7 +260,7 @@ export default function StudentMeals() {
   const [meals, setMeals] = useState<Meals[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<Meals[]>([]);
   const [search, setSearch] = useState("");
-  const [maxDistance, setMaxDistance] = useState(10);
+  const [maxDistance, setMaxDistance] = useState(30);
   const [maxPrice, setMaxPrice] = useState(200);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -348,10 +348,10 @@ export default function StudentMeals() {
         const updatedMealsRes = await api.get("/meals");
 
         const processedMeals = updatedMealsRes.data
-          // ✅ FILTER OUT EXPIRED
+          //  FILTER OUT EXPIRED
           .filter((meal: any) => !meal.expired)
 
-          // ✅ ADD DISTANCE
+          //  ADD DISTANCE
           .map((meal: any) => {
             const restaurant = restaurants.find(
               (r: any) => r.id === meal.restaurantId
@@ -373,7 +373,7 @@ export default function StudentMeals() {
             return { ...meal, distance };
           });
 
-        // ✅ SORT BY DISTANCE
+        // SORT BY DISTANCE
         processedMeals.sort(
           (a: any, b: any) => (a.distance ?? 999) - (b.distance ?? 999)
         );

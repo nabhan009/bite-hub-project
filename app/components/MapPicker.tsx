@@ -11,10 +11,11 @@ import type { LatLngExpression } from "leaflet";
 
 interface Props {
   onSelect: (lat: number, lng: number) => void;
+  initialPosition?: LatLngExpression;
 }
 
-export default function MapPicker({ onSelect }: Props) {
-  const [position, setPosition] = useState<LatLngExpression | null>(null);
+export default function MapPicker({ onSelect, initialPosition }: Props) {
+  const [position, setPosition] = useState<LatLngExpression | null>(initialPosition || null);
 
   const defaultPosition: LatLngExpression = [11.2588, 75.7804]; // Kozhikode
 
